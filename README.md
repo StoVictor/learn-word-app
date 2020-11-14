@@ -10,8 +10,14 @@ npm install
 
 ## To develop fronted
 ```
-cd fronted
+cd frontend
 ng build --watch --base-href=../static
 cd ..
 python app.py
+```
+or just
+
+```
+cd frontend
+ng serve
 ```
