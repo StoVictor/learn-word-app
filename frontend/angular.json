@@ -16,7 +16,7 @@
             "outputPath": "../static",
             "index": {
                 "input": "src/index.html",
-                "output": "../templates/index.html"
+                "output": "../static/index.html"
             },
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
