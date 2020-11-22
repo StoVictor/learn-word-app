@@ -10,7 +10,17 @@
             </mat-icon>
             <span>{{ menuItem.text }}</span>
             </a>
-        </div>       
+        </div>
+        <div class="menu-item">
+            <a [routerLink]="'/auth'" routerLinkActive="selected" *ngIf="!isAuthinticated">
+                <mat-icon>login</mat-icon>
+                <span>Log in / Sign up</span> 
+            </a>
+            <a *ngIf="isAuthinticated" (click)="onLogout()">
+                <mat-icon>login</mat-icon>
+                <span>Log out</span>
+            </a>
+        </div>
     </mat-sidenav>
     <mat-sidenav-content>
         <mat-toolbar class="main-nav">
@@ -22,7 +32,7 @@
             </p>
 
         </mat-toolbar>
-
+        <button mat-button (click)="onReq()">Send Request</button>
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
