@@ -1,0 +1,65 @@
+<div class="main">
+  <h1>Create new pack</h1>
+  <form class="form" #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <mat-form-field class="form__field" appearance="outline">
+      <mat-label>Pack name</mat-label>
+      <input
+        matInput
+        type="text"
+        ngModel
+        name="name"
+        required
+        #name="ngModel"
+      />
+      <mat-error *ngIf="name.touched">Provide a name for the pack</mat-error>
+    </mat-form-field>
+    <label><h3>Pack type:</h3></label>
+    <mat-radio-group ngModel name="type" #type="ngModel" required>
+      <mat-radio-button value="0" checked>Public</mat-radio-button>
+      <mat-radio-button value="1">Private</mat-radio-button>
+    </mat-radio-group>
+    <br />
+    <label><h3>Languages:</h3></label>
+    <mat-form-field class="form__field" appearance="outline">
+      <mat-label>from</mat-label>
+      <input
+        matInput
+        type="text"
+        ngModel
+        name="langFrom"
+        required
+        #langFrom="ngModel"
+      />
+      <mat-error *ngIf="langFrom.touched"
+        >Provide a language from witch you translate</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <mat-form-field class="form__field" appearance="outline">
+      <mat-label>to</mat-label>
+      <input
+        matInput
+        type="text"
+        ngModel
+        name="langTo"
+        required
+        #langTo="ngModel"
+      />
+      <mat-error *ngIf="langTo.touched"
+        >Provide a language to witch you translate</mat-error
+      >
+    </mat-form-field>
+    <label><h3>Words</h3></label>
+    <div class="words"></div>
+    <div class="form__button-container">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!f.valid"
+      >
+        Create
+      </button>
+    </div>
+  </form>
+</div>

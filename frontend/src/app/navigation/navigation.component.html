@@ -1,28 +1,24 @@
 <mat-sidenav-container class="example-container">
-    <mat-sidenav #sidenav [mode]="mode" position="end">
-        <div *ngFor="let menuItem of menu;" class="menu-item">
-            <a [routerLink]="menuItem.path" routerLinkActive="selected">
-            <mat-icon 
-                aria-hidden="false" 
-                [aria-label]="menuItem.name"
-            >
-                {{ menuItem.icon }}
-            </mat-icon>
-            <span>{{ menuItem.text }}</span>
-            </a>
-        </div>       
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <mat-toolbar class="main-nav">
-            <span class="logo">LW</span>
-            <p>
-                <button mat-button (click)="sidenav.toggle()">
-                    <mat-icon>menu</mat-icon>
-                </button>
-            </p>
+  <mat-sidenav #sidenav [mode]="mode" position="end">
+    <div *ngFor="let menuItem of menu" class="menu-item">
+      <a [routerLink]="menuItem.path" routerLinkActive="selected">
+        <mat-icon aria-hidden="false" [aria-label]="menuItem.name">
+          {{ menuItem.icon }}
+        </mat-icon>
+        <span>{{ menuItem.text }}</span>
+      </a>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar class="main-nav">
+      <span class="logo">LW</span>
+      <p>
+        <button mat-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </p>
+    </mat-toolbar>
 
-        </mat-toolbar>
-
-        <router-outlet></router-outlet>
-    </mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>
