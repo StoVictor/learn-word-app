@@ -15,8 +15,7 @@ import { stringify } from '@angular/compiler/src/util';
   styleUrls: ['./create-pack.component.css'],
 })
 export class CreatePackComponent implements OnInit {
-  //@ViewChild('f') createPackForm: NgForm;
-  pack: Pack;
+  @ViewChild('f') createPackForm: NgForm;
 
   packForm = this.fb.group({
     name: ['', Validators.required],
@@ -37,13 +36,22 @@ export class CreatePackComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  savePack(): void {
-    this.pack.name = 'lol';
-    console.log(this.pack);
-  }
-
   onSubmit(): void {
-    this.savePack();
+    let words = this.packForm.get('words').value.map((word) => {
+      return { from: word.wordFrom, to: word.wordTo };
+    });
+    console.log(words);
+    let pack = {
+      name: this.packForm.get('name').value,
+      public: this.packForm.get('type').value === '0' ? true : false,
+      languages: {
+        from: this.packForm.get('languages').get('langFrom').value,
+        to: this.packForm.get('languages').get('langTo').value,
+      },
+      words,
+    } as Pack;
+    console.log(pack);
+    this.createPackService.savePack(pack);
   }
 
   createWord(): FormGroup {

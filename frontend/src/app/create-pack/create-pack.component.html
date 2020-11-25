@@ -1,6 +1,6 @@
 <div class="main">
   <h1>Create new pack</h1>
-  <form class="form" [formGroup]="packForm" (ngSubmit)="onSubmit()">
+  <form class="form" #f="ngForm" [formGroup]="packForm" (ngSubmit)="onSubmit()">
     <mat-form-field class="form__field" appearance="outline">
       <mat-label>Pack name</mat-label>
       <input matInput type="text" name="name" required formControlName="name" />
