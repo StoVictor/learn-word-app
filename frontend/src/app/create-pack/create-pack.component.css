@@ -3,11 +3,23 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #73c6b6;
+  color: #2c3e50;
 }
+
 .form {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+}
+
+.checkboxes {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
   align-items: center;
 }
 

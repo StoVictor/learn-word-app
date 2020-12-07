@@ -3,19 +3,53 @@ import { Pack, CreatePackService } from '../create-pack.service';
 import {
   FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   NgForm,
   Validators,
 } from '@angular/forms';
-import { stringify } from '@angular/compiler/src/util';
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-create-pack',
   templateUrl: './create-pack.component.html',
   styleUrls: ['./create-pack.component.css'],
+  animations: [
+    trigger('showpacks', [
+      state(
+        'in',
+        style({
+          overflow: 'hidden',
+          height: '*',
+          width: '50%',
+        })
+      ),
+      state(
+        'out',
+        style({
+          opacity: '0',
+          overflow: 'hidden',
+          height: '0px',
+          width: '0px',
+        })
+      ),
+      transition('out => in', animate('400ms ease-in-out')),
+      transition('in => out', animate('400ms ease-in-out')),
+    ]),
+  ],
 })
 export class CreatePackComponent implements OnInit {
   @ViewChild('f') createPackForm: NgForm;
+
+  showrefpacks = 'out';
+
+  PACKS = this.createPackService.PACKS;
 
   packForm = this.fb.group({
     name: ['', Validators.required],
@@ -24,6 +58,7 @@ export class CreatePackComponent implements OnInit {
       langFrom: ['', Validators.required],
       langTo: ['', Validators.required],
     }),
+    packs: this.fb.array(this.createRefPacks()),
     words: this.fb.array([this.createWord()]),
   });
 
@@ -40,7 +75,13 @@ export class CreatePackComponent implements OnInit {
     let words = this.packForm.get('words').value.map((word) => {
       return { from: word.wordFrom, to: word.wordTo };
     });
-    console.log(words);
+    const refpacks = [];
+    this.packForm.get('packs').value.forEach((include, index) => {
+      if (include) {
+        refpacks.push(this.PACKS[index].name);
+        words = words.concat(this.PACKS[index].words);
+      }
+    });
     let pack = {
       name: this.packForm.get('name').value,
       public: this.packForm.get('type').value === '0' ? true : false,
@@ -48,6 +89,7 @@ export class CreatePackComponent implements OnInit {
         from: this.packForm.get('languages').get('langFrom').value,
         to: this.packForm.get('languages').get('langTo').value,
       },
+      packs: refpacks,
       words,
     } as Pack;
     console.log(pack);
@@ -72,6 +114,27 @@ export class CreatePackComponent implements OnInit {
     this.wordsArray.removeAt(i);
   }
 
+  createRefPacks(): FormControl[] {
+    const refpacks = [];
+    this.createPackService.PACKS.map((pack) => {
+      refpacks.push(new FormControl());
+    });
+    return refpacks;
+  }
+
+  showWords(i: number, e: Event): void {
+    e.preventDefault();
+    let showwords: string[] = this.PACKS[i].words.map((word) => {
+      return word.from + ' : ' + word.to;
+    });
+    alert(showwords.join('\n'));
+  }
+
+  toggleShowRefPacks(e: Event): void {
+    e.preventDefault();
+    this.showrefpacks = this.showrefpacks === 'out' ? 'in' : 'out';
+  }
+
   get words() {
     return this.packForm.get('words');
   }
@@ -88,5 +151,13 @@ export class CreatePackComponent implements OnInit {
 
   get wordsControls() {
     return this.packForm.get('words')['controls'];
+  }
+
+  get packsControls() {
+    return this.packForm.get('packs')['controls'];
+  }
+
+  get packs() {
+    return this.packForm.get('packs');
   }
 }

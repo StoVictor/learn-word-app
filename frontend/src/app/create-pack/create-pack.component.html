@@ -48,6 +48,28 @@
         >Provide a language to witch you translate</mat-error
       >
     </mat-form-field>
+    <label><h3>Packs references</h3></label>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="toggleShowRefPacks($event)"
+    >
+      <span *ngIf="showrefpacks === 'out'">Show packs</span>
+      <span *ngIf="showrefpacks === 'in'">Hide packs</span>
+    </button>
+    <div class="checkboxes" [@showpacks]="showrefpacks">
+      <p formArrayName="packs" *ngFor="let refpack of PACKS; let z = index">
+        <mat-checkbox [formControlName]="z">{{ refpack.name }}</mat-checkbox
+        ><br />
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="showWords(z, $event)"
+        >
+          Check words
+        </button>
+      </p>
+    </div>
     <label><h3>Words</h3></label>
     <div class="words">
       <div
