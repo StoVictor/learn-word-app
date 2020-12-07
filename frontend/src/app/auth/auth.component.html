@@ -1,0 +1,30 @@
+<mat-card *ngIf="error" class="error-card">{{ error }}</mat-card>
+<form class="form" #f="ngForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+    <mat-form-field class="form__field"> 
+        <mat-label>Email</mat-label>
+        <input 
+            matInput type="email" 
+            ngModel name="email" 
+            required email 
+            #email="ngModel"
+        >
+        <mat-error *ngIf="!email.valid && email.touched">
+            Please provide a correct email
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="form__field"> 
+        <mat-label>Password</mat-label>
+        <input matInput type="password" ngModel name="password" required minLength="6">
+    </mat-form-field>
+    <div class="form__button-container">
+        <button mat-button type="submit" [disabled]="!f.valid">
+            {{ isLoginMode ? 'Login' : 'Sing Up' }}
+        </button> |
+        <button mat-button type="button" (click)="onSwitchMode()">
+            {{ isLoginMode ? 'Switch to Sign Up' : 'Switch to Login' }}
+        </button>
+    </div>
+</form>
+<div class="spinner-container" *ngIf="isLoading">
+    <div class="lds-hourglass"></div>
+</div>

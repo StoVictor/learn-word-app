@@ -26,6 +26,11 @@
   align-items: center;
 }
 
+.menu-item:last-child {
+  position: fixed;
+  bottom: 270px;
+  width: 100%;
+}
 
 .menu-item a {
     padding: 5px 8px 8px 10px;

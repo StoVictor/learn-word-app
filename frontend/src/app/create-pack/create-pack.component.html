@@ -1,0 +1,104 @@
+<div class="main">
+  <h1>Create new pack</h1>
+  <form class="form" #f="ngForm" [formGroup]="packForm" (ngSubmit)="onSubmit()">
+    <mat-form-field class="form__field" appearance="outline">
+      <mat-label>Pack name</mat-label>
+      <input matInput type="text" name="name" required formControlName="name" />
+      <mat-error *ngIf="name.touched">Provide a name for the pack</mat-error>
+    </mat-form-field>
+    <label><h3>Pack type:</h3></label>
+    <mat-radio-group formControlName="type" name="type" required>
+      <mat-radio-button value="0" checked>Public</mat-radio-button>
+      <mat-radio-button value="1">Private</mat-radio-button>
+    </mat-radio-group>
+    <br />
+    <label><h3>Languages:</h3></label>
+    <mat-form-field
+      class="form__field"
+      appearance="outline"
+      formGroupName="languages"
+    >
+      <mat-label>from</mat-label>
+      <input
+        matInput
+        type="text"
+        name="langFrom"
+        required
+        formControlName="langFrom"
+      />
+      <mat-error *ngIf="langFrom.touched"
+        >Provide a language from witch you translate</mat-error
+      >
+    </mat-form-field>
+    <br />
+    <mat-form-field
+      class="form__field"
+      appearance="outline"
+      formGroupName="languages"
+    >
+      <mat-label>to</mat-label>
+      <input
+        matInput
+        type="text"
+        name="langTo"
+        required
+        formControlName="langTo"
+      />
+      <mat-error *ngIf="langTo.touched"
+        >Provide a language to witch you translate</mat-error
+      >
+    </mat-form-field>
+    <label><h3>Words</h3></label>
+    <div class="words">
+      <div
+        class="wordsArray"
+        formArrayName="words"
+        *ngFor="let words of wordsControls; let i = index"
+      >
+        <div [formGroupName]="i">
+          <mat-form-field>
+            <mat-label>From: </mat-label>
+            <input
+              matInput
+              type="text"
+              name="wordFrom"
+              formControlName="wordFrom"
+              required
+            />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>To: </mat-label>
+            <input
+              matInput
+              type="text"
+              name="wordTo"
+              formControlName="wordTo"
+              required
+            />
+          </mat-form-field>
+          <button
+            *ngIf="i != 0"
+            mat-raised-button
+            color="warn"
+            (click)="removeWord(i, $event)"
+          >
+            Delete
+          </button>
+        </div>
+        <button mat-stroked-button color="primary" (click)="addWord($event)">
+          Add word
+        </button>
+      </div>
+    </div>
+    <div class="form__button-container">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!packForm.valid"
+      >
+        Create
+      </button>
+    </div>
+  </form>
+</div>
