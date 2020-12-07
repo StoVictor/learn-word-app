@@ -17,6 +17,7 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { TrainingAndGameComponent } from './training-and-game/training-and-game.component';
 import { AppRoutingModule } from './app-routing.module';
+import { PacksComponent } from './packs/packs.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthService } from './auth/auth.service';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
@@ -27,6 +28,7 @@ import { CreatePackComponent } from './create-pack/create-pack.component';
     AppComponent,
     NavigationComponent,
     TrainingAndGameComponent,
+    PacksComponent,
     AuthComponent,
     CreatePackComponent
   ],
@@ -37,6 +39,7 @@ import { CreatePackComponent } from './create-pack/create-pack.component';
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
+    AppRoutingModule,
     MatInputModule,
     MatButtonModule,
     MatCardModule,
@@ -45,7 +48,7 @@ import { CreatePackComponent } from './create-pack/create-pack.component';
     FormsModule,
     MatFormFieldModule,
     AppRoutingModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [AuthService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
   bootstrap: [AppComponent]
