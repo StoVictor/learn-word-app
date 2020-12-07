@@ -1,0 +1,44 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form__field {
+  width: 200px;
+}
+
+.mat-radio-button {
+  margin: 0 12px;
+}
+
+.form__button-container {
+  margin: 15px;
+}
+
+.words {
+  width: 400px;
+  margin: 10px;
+  border: black solid 1px;
+  border-radius: 5px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.wordsArray {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
