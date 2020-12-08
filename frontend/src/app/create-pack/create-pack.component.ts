@@ -78,7 +78,7 @@ export class CreatePackComponent implements OnInit {
     const refpacks = [];
     this.packForm.get('packs').value.forEach((include, index) => {
       if (include) {
-        refpacks.push(this.PACKS[index].name);
+        refpacks.push(this.PACKS[index]);
         words = words.concat(this.PACKS[index].words);
       }
     });
@@ -133,6 +133,18 @@ export class CreatePackComponent implements OnInit {
   toggleShowRefPacks(e: Event): void {
     e.preventDefault();
     this.showrefpacks = this.showrefpacks === 'out' ? 'in' : 'out';
+  }
+
+  addWordsFromRefPacks(e: Event, pack: Pack): void {
+    e.preventDefault();
+    let newarray = this.packForm.get('words') as FormArray;
+    pack.words.forEach((word) => {
+      let group = this.fb.group({
+        wordFrom: [word.from, Validators.required],
+        wordTo: [word.to, Validators.required],
+      });
+      newarray.push(group);
+    });
   }
 
   get words() {
