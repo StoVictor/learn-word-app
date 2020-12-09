@@ -7,6 +7,106 @@
   color: #2c3e50;
 }
 
+.customInput {
+  background-color: #d0ece7;
+  border: 1px solid #2c3e50;
+  color: #2c3e50;
+  width: 40%;
+  padding: 10px;
+  font-size: large;
+}
+
+.customInput::placeholder {
+  color: #d7ccc8;
+  text-align: center;
+}
+
+.customInput:-webkit-autofill,
+.customInput:-webkit-autofill:hover,
+.customInput:-webkit-autofill:focus,
+.customInput:-webkit-autofill:active {
+  transition: background-color 5000s;
+  -webkit-text-fill-color: #2c3e50 !important;
+}
+
+.buttonAdd {
+  color: white;
+  background-color: #cd6155;
+  border: 0px;
+  width: 30%;
+  padding: 10px;
+  font-size: large;
+}
+
+.buttonShow {
+  color: white;
+  background-color: #cd6155;
+  border: 0px;
+  width: 30%;
+  padding: 5px;
+  font-size: medium;
+}
+
+.buttonCheck {
+  color: white;
+  background-color: #cd6155;
+  border: 0px;
+  padding: 5px;
+}
+
+.buttonCreate {
+  color: white;
+  background-color: #cd6155;
+  border: 0px;
+  width: 100%;
+  padding: 10px;
+  font-size: large;
+}
+
+.buttonCreate:disabled {
+  background-color: #d98880;
+}
+.buttonCreate:active,
+.buttonAdd:active,
+.buttonShow:active,
+.buttonCheck:active,
+.buttonDel:active,
+.buttonColls:active {
+  background-color: #96463d;
+}
+
+.wordsAligment {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.wordInput {
+  color: #2c3e50;
+  width: 40%;
+  padding: 10px;
+  font-size: large;
+  background-color: #d0ece7;
+  border: 0;
+  border-bottom: 1px solid #d7ccc8;
+  margin-bottom: 5%;
+}
+
+.wordInput::placeholder {
+  color: #d7ccc8;
+}
+
+.buttonDel {
+  color: white;
+  background-color: #cd6155;
+  border: 0;
+  width: 15%;
+  padding: 5px;
+  font-size: medium;
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -15,7 +115,7 @@
 }
 
 .checkboxes {
-  width: 50%;
+  width: 70%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -23,8 +123,19 @@
   align-items: center;
 }
 
+.buttonColls {
+  color: white;
+  background-color: #cd6155;
+  border: 0;
+  padding: 5px;
+}
+
 .form__field {
-  width: 200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .mat-radio-button {
@@ -36,15 +147,15 @@
 }
 
 .words {
-  width: 400px;
+  width: 70%;
   margin: 10px;
-  border: black solid 1px;
-  border-radius: 5px;
+  border: 1px solid #2c3e50;
   padding: 12px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #d0ece7;
 }
 
 .wordsArray {

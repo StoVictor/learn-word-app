@@ -1,125 +1,109 @@
 <div class="main">
   <h1>Create new pack</h1>
   <form class="form" #f="ngForm" [formGroup]="packForm" (ngSubmit)="onSubmit()">
-    <mat-form-field class="form__field" appearance="outline">
-      <mat-label>Pack name</mat-label>
-      <input matInput type="text" name="name" required formControlName="name" />
-      <mat-error *ngIf="name.touched">Provide a name for the pack</mat-error>
-    </mat-form-field>
-    <label><h3>Pack type:</h3></label>
+    <label><h3>Collection name</h3></label>
+    <input
+      type="text"
+      class="customInput"
+      name="name"
+      required
+      formControlName="name"
+      placeholder="Collection name*"
+    />
+    <label><h3>Collection type:</h3></label>
     <mat-radio-group formControlName="type" name="type" required>
       <mat-radio-button value="0" checked>Public</mat-radio-button>
       <mat-radio-button value="1">Private</mat-radio-button>
     </mat-radio-group>
     <br />
     <label><h3>Languages:</h3></label>
-    <mat-form-field
-      class="form__field"
-      appearance="outline"
-      formGroupName="languages"
-    >
-      <mat-label>from</mat-label>
+    <div class="form__field" formGroupName="languages">
       <input
-        matInput
+        class="customInput"
         type="text"
         name="langFrom"
         required
         formControlName="langFrom"
+        placeholder="from*"
       />
-      <mat-error *ngIf="langFrom.touched"
-        >Provide a language from witch you translate</mat-error
-      >
-    </mat-form-field>
+    </div>
     <br />
-    <mat-form-field
-      class="form__field"
-      appearance="outline"
-      formGroupName="languages"
-    >
-      <mat-label>to</mat-label>
+    <div class="form__field" formGroupName="languages">
       <input
-        matInput
+        class="customInput"
         type="text"
         name="langTo"
         required
         formControlName="langTo"
+        placeholder="to*"
       />
-      <mat-error *ngIf="langTo.touched"
-        >Provide a language to witch you translate</mat-error
-      >
-    </mat-form-field>
-    <label><h3>Packs references</h3></label>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="toggleShowRefPacks($event)"
-    >
-      <span *ngIf="showrefpacks === 'out'">Show packs</span>
-      <span *ngIf="showrefpacks === 'in'">Hide packs</span>
+    </div>
+    <label><h3>Collection references</h3></label>
+    <button (click)="toggleShowRefPacks($event)" class="buttonShow">
+      <span *ngIf="showrefpacks === 'out'">Show collections</span>
+      <span *ngIf="showrefpacks === 'in'">Hide collections</span>
     </button>
     <div class="checkboxes" [@showpacks]="showrefpacks">
       <p formArrayName="packs" *ngFor="let refpack of PACKS; let z = index">
         <mat-checkbox [formControlName]="z">{{ refpack.name }}</mat-checkbox
         ><br />
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="showWords(z, $event)"
-        >
+        <button (click)="showWords(z, $event)" class="buttonCheck">
           Check words
         </button>
       </p>
     </div>
     <label><h3>Words</h3></label>
     <div class="words">
-      <h4>Include words from another pack:</h4>
+      <h4>Include words from another collection</h4>
+      <button class="buttonShow" (click)="toggleShowRefColls($event)">
+        <span *ngIf="showrefcolls === 'out'">Show collections</span>
+        <span *ngIf="showrefcolls === 'in'">Hide collections</span>
+      </button>
+      <div class="checkboxes" [@showcolls]="showrefcolls">
+        <p *ngFor="let coll of PACKS; let j = index">
+          <button
+            (click)="addWordsFromRefPacks($event, coll)"
+            class="buttonColls"
+          >
+            {{ coll.name }}
+          </button>
+        </p>
+      </div>
       <div
         class="wordsArray"
         formArrayName="words"
         *ngFor="let words of wordsControls; let i = index"
       >
-        <div [formGroupName]="i">
-          <mat-form-field>
-            <mat-label>From: </mat-label>
-            <input
-              matInput
-              type="text"
-              name="wordFrom"
-              formControlName="wordFrom"
-              required
-            />
-          </mat-form-field>
-          <mat-form-field>
-            <mat-label>To: </mat-label>
-            <input
-              matInput
-              type="text"
-              name="wordTo"
-              formControlName="wordTo"
-              required
-            />
-          </mat-form-field>
+        <div [formGroupName]="i" class="wordsAligment">
+          <input
+            class="wordInput"
+            type="text"
+            name="wordFrom"
+            formControlName="wordFrom"
+            placeholder="from*"
+            required
+          />
+          <input
+            class="wordInput"
+            type="text"
+            name="wordTo"
+            formControlName="wordTo"
+            required
+            placeholder="to*"
+          />
           <button
             *ngIf="i != 0"
-            mat-raised-button
-            color="warn"
+            class="buttonDel"
             (click)="removeWord(i, $event)"
           >
             Delete
           </button>
         </div>
-        <button mat-stroked-button color="primary" (click)="addWord($event)">
-          Add word
-        </button>
       </div>
+      <button class="buttonAdd" (click)="addWord($event)">Add word</button>
     </div>
     <div class="form__button-container">
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="!packForm.valid"
-      >
+      <button type="submit" [disabled]="!packForm.valid" class="buttonCreate">
         Create
       </button>
     </div>

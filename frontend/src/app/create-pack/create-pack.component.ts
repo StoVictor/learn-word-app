@@ -27,7 +27,28 @@ import {
         style({
           overflow: 'hidden',
           height: '*',
-          width: '50%',
+          width: '70%',
+        })
+      ),
+      state(
+        'out',
+        style({
+          opacity: '0',
+          overflow: 'hidden',
+          height: '0px',
+          width: '0px',
+        })
+      ),
+      transition('out => in', animate('400ms ease-in-out')),
+      transition('in => out', animate('400ms ease-in-out')),
+    ]),
+    trigger('showcolls', [
+      state(
+        'in',
+        style({
+          overflow: 'hidden',
+          height: '*',
+          width: '100%',
         })
       ),
       state(
@@ -48,6 +69,7 @@ export class CreatePackComponent implements OnInit {
   @ViewChild('f') createPackForm: NgForm;
 
   showrefpacks = 'out';
+  showrefcolls = 'out';
 
   PACKS = this.createPackService.PACKS;
 
@@ -111,7 +133,8 @@ export class CreatePackComponent implements OnInit {
 
   removeWord(i: number, event: Event): void {
     event.preventDefault();
-    this.wordsArray.removeAt(i);
+    let temparray = this.packForm.get('words') as FormArray;
+    temparray.removeAt(i);
   }
 
   createRefPacks(): FormControl[] {
@@ -125,14 +148,19 @@ export class CreatePackComponent implements OnInit {
   showWords(i: number, e: Event): void {
     e.preventDefault();
     let showwords: string[] = this.PACKS[i].words.map((word) => {
-      return word.from + ' : ' + word.to;
+      return word.from + ' -> ' + word.to;
     });
-    alert(showwords.join('\n'));
+    alert('Collection ' + this.PACKS[i].name + ':\n' + showwords.join('\n'));
   }
 
   toggleShowRefPacks(e: Event): void {
     e.preventDefault();
     this.showrefpacks = this.showrefpacks === 'out' ? 'in' : 'out';
+  }
+
+  toggleShowRefColls(e: Event): void {
+    e.preventDefault();
+    this.showrefcolls = this.showrefcolls === 'out' ? 'in' : 'out';
   }
 
   addWordsFromRefPacks(e: Event, pack: Pack): void {
