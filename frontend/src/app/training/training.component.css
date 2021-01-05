@@ -1,0 +1,54 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #73c6b6;
+  color: #2c3e50;
+  height: 100%;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.customInput {
+  background-color: #d0ece7;
+  border: 1px solid #2c3e50;
+  color: #2c3e50;
+  width: 40%;
+  padding: 10px;
+  font-size: large;
+}
+
+.customInput::placeholder {
+  color: #d7ccc8;
+  text-align: center;
+}
+
+.skipButton {
+  color: white;
+  background-color: #cd6155;
+  border: 0px;
+  width: 30%;
+  padding: 10px;
+  font-size: 200%;
+  margin-bottom: 5%;
+  margin-top: 5%;
+}
+.closeButton {
+  color: black;
+  background-color: grey;
+  border: 0px;
+  width: 30%;
+  padding: 10px;
+  font-size: 150%;
+}
+
+.wordsLeft {
+  position: absolute;
+  right: 5%;
+}
+
+.timeBar {
+  width: 40%;
+  background-color: #cd6155;
+  height: 2%;
+}

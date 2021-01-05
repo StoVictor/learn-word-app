@@ -18,6 +18,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { TrainingAndGameComponent } from './training-and-game/training-and-game.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CreatePackComponent } from './create-pack/create-pack.component';
+import { TrainingComponent } from './training/training.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { CreatePackComponent } from './create-pack/create-pack.component';
     NavigationComponent,
     TrainingAndGameComponent,
     CreatePackComponent,
+    TrainingComponent,
   ],
   imports: [
     BrowserModule,

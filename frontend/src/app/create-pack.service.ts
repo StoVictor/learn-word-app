@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 export interface Pack {
   name: string;
   public: boolean;
+  packs?: Pack[];
   languages: {
     from: string;
     to: string;
@@ -51,4 +52,12 @@ export class CreatePackService {
       ],
     },
   ];
+
+  getPack(name: string): Pack | null {
+    const pack = this.PACKS.filter((pack) => pack.name == name);
+    if (pack.length <= 0) {
+      return null;
+    }
+    return pack[0];
+  }
 }
