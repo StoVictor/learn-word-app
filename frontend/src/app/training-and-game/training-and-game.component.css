@@ -1,0 +1,24 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #73c6b6;
+  color: #2c3e50;
+  height: 100%;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.pack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #d0ece7;
+  border: 1px solid #2c3e50;
+  color: #2c3e50;
+  width: 60%;
+  height: 10%;
+  padding: 10px;
+  font-size: 200%;
+}
