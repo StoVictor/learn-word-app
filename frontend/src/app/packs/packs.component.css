@@ -1,0 +1,46 @@
+
+.searchbar{
+    width: 335px;
+    height: 37px;
+    left: 12px;
+    top: 110px;
+    margin: 10px;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+
+    color: #757575;
+}
+
+.packbox{
+    left: 40%;
+    position: absolute;
+    align-items: center;
+    background: #FFFFFF;
+    border: 1px solid #000000;
+    box-sizing: border-box;
+    
+}
+
+.boxes{
+    width: 352px;
+    height: 35px;
+    left: 13px;
+    top: 254px;
+    padding: 5px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+
+    border: 1px solid #000000;
+    color: #000000;
+}
