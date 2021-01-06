@@ -1,10 +1,20 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #73c6b6;
+    color: #2c3e50;
+    height: 100%;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  }
+
 .searchbar{
     width: 351px;
     height: 37px;
     left: 12px;
     top: 110px;
     margin: 10px;
-    font-family: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
@@ -22,8 +32,31 @@
     position: absolute;
     align-items: center;
     background: #73C6B6;
-    border: 0.1px solid #000000;
+
     box-sizing: border-box;
+    
+}
+
+.statbox{
+    width: 352px;
+    height: 70px;
+    left: 13px;
+    top: 254px;
+    padding: 5px;
+    margin: 5px 0px 0px 5px;
+    border-radius: 1em;
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #D0ECE7;
+
+    border: 1px solid #000000;
     
 }
 
@@ -32,11 +65,11 @@
     position: absolute;
     align-items: center;
     background: #73C6B6;
-    border: 0.1px solid #000000;
+ 
     box-sizing: border-box;
     padding: 5px 10px 5px;
     
-    font-family: Roboto;
+
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
@@ -53,7 +86,6 @@
     top: 254px;
     padding: 5px;
     margin: 5px 0px 0px 5px;
-    font-family: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
@@ -82,8 +114,7 @@
     height: 20px;
 }
 .mat-icon-36 {
-    float: right;
-    vertical-align: text-top;
+    vertical-align: middle;
     font-size: 36px;
     width: 36px;
     height: 36px;

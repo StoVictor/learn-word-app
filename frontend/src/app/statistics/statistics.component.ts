@@ -9,15 +9,24 @@ import { listStat } from '../Teststats';
 })
 export class StatisticsComponent implements OnInit {
   
-  _stats: Stat;
+  statsList: Stat[];
   percentage: string;
+  Selectedstat: Stat;
 
   constructor() { }
 
   ngOnInit(): void {
+    this.statsList =  listStat;
+  }
 
-    this._stats =  listStat;
-    this.percentage = ((this._stats.correct/this._stats.count)*100).toString()
+  onSelect(_stat: Stat): void {
+    if(_stat == this.Selectedstat){
+      this.Selectedstat = null;
+      
+    }else{
+      this.Selectedstat = _stat;
+      this.percentage = ((this.Selectedstat.correct/this.Selectedstat.count)*100).toString()
+    }
   }
 
 }
