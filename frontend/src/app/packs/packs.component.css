@@ -1,6 +1,5 @@
-
 .searchbar{
-    width: 335px;
+    width: 351px;
     height: 37px;
     left: 12px;
     top: 110px;
@@ -12,19 +11,40 @@
     line-height: 21px;
     display: flex;
     align-items: center;
-
-    color: #757575;
+    background: #D0ECE7;
+    border: 0.1px solid #000000;
+    color: #2C3E50;
 }
 
 .packbox{
     left: 40%;
+    padding: 5px 10px 5px;
     position: absolute;
     align-items: center;
-    background: #FFFFFF;
-    border: 1px solid #000000;
+    background: #73C6B6;
+    border: 0.1px solid #000000;
     box-sizing: border-box;
     
 }
+
+.Listbox{
+    left: 63%;
+    position: absolute;
+    align-items: center;
+    background: #73C6B6;
+    border: 0.1px solid #000000;
+    box-sizing: border-box;
+    padding: 5px 10px 5px;
+    
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    text-align:center
+}
+
+
 
 .boxes{
     width: 352px;
@@ -32,15 +52,39 @@
     left: 13px;
     top: 254px;
     padding: 5px;
-
+    margin: 5px 0px 0px 5px;
     font-family: Roboto;
     font-style: normal;
     font-weight: bold;
     font-size: 18px;
     line-height: 21px;
+    text-align:center;
+    vertical-align: middle;
     display: flex;
+    justify-content: center;
     align-items: center;
+    background: #D0ECE7;
 
-    border: 1px solid #000000;
-    color: #000000;
+    border: 0.11px solid #000000;
+    color: #2C3E50;
+}
+
+.mat-icon-16 {
+    vertical-align: middle;
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+.mat-icon-24 {
+    vertical-align: middle;
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+}
+.mat-icon-36 {
+    float: right;
+    vertical-align: text-top;
+    font-size: 36px;
+    width: 36px;
+    height: 36px;
 }

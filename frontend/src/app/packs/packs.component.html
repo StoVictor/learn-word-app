@@ -1,7 +1,27 @@
 
+<div>
 <div class="packbox">
-  <input type ="text" #PackInput [(ngModel)]="name" (input)="Search()" class="searchbar" placeholder="Search..."/>
-  <li class="boxes" *ngFor="let pack of Packs">
-      <span >{{pack.name}}</span> 
+  <input type ="text" #PackInput [(ngModel)]="Searchkey" (input)="Search()" class="searchbar" placeholder="Search..."/>
+  
+  <li class="boxes" *ngFor="let pack of Packs" (click)="onSelect(pack)">
+      <span>{{pack.name + " | " + pack.languages.from }} <mat-icon class="mat-icon-16">
+        arrow_right_alt
+        </mat-icon>{{" "+ pack.languages.to + " |  Public: " }}
+        <mat-icon *ngIf="pack.public" class="mat-icon-24">check_circle</mat-icon>
+        <mat-icon *ngIf="!pack.public" class="mat-icon-24">unpublished</mat-icon>
+      </span>
   </li>
+  
+</div>
+<div class="Listbox" *ngIf="SelectedPack">
+    <p><label >{{" Details of "+ SelectedPack.name + " pack" }}</label><mat-icon class="mat-icon-36" (click)="onSelect(SelectedPack)">highlight_off</mat-icon></p>
+    <li class="boxes">{{"Translate " + SelectedPack.languages.from}}<mat-icon class="mat-icon-16">
+      arrow_right_alt
+      </mat-icon>{{SelectedPack.languages.to}}</li>
+    <li class="boxes" *ngFor="let Word of SelectedPack.words">
+      <span> {{Word.id +". "+  Word.from }}<mat-icon class="mat-icon-16">
+        arrow_right_alt
+        </mat-icon>{{" "+ Word.to }}</span>
+    </li>
+</div>
 </div>

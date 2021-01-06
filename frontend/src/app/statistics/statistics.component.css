@@ -1,0 +1,66 @@
+.packbox{
+    left: 40%;
+    padding: 5px 10px 5px;
+    position: absolute;
+    align-items: center;
+    background: #73C6B6;
+    border: 0.1px solid #000000;
+    box-sizing: border-box;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    text-align:center
+    
+}
+
+.fillbar{
+    display: flex;
+    align-items: center;
+    width: 13%;
+    height: 100%;
+    min-width: 2%;
+    max-width: 97%;
+    border-radius: 1em;
+    padding-left: 10px;
+    text-align: center;
+    background-color: #247c50;
+}
+
+.fillbox{
+    width: 352px;
+    height: 35px;
+    left: 13px;
+    top: 254px;
+    padding: 5px;
+    margin: 5px 0px 0px 5px;
+    border-radius: 1em;
+    background: #D0ECE7;
+    border: 1px solid #000000;
+}
+
+.boxes{
+    width: 352px;
+    height: 35px;
+    left: 13px;
+    top: 254px;
+    padding: 5px;
+    margin: 5px 0px 0px 5px;
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #D0ECE7;
+
+    border: 1px solid #000000;
+    color: #000000;
+}

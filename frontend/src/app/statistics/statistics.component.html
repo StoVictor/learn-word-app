@@ -1,0 +1,11 @@
+<div class="packbox">
+    
+    <p>{{"words: "+ _stats.count }}</p>
+    <p>{{"correct:" + _stats.correct }}</p>
+    <p>{{"wrong: " + _stats.wrong  }}</p> 
+    <div class="fillbox"><div class="fillbar" [ngStyle]="{'width':percentage+'%'}">{{percentage | number }}%</div></div>
+    
+    <li class="boxes" *ngFor="let answers of _stats.words" [ngStyle]="!answers.correct && {'background-color':'#d15858bb'}" >
+        <span >{{answers.wordFrom + " = " + answers.wordTo}}  </span>
+    </li>
+</div>
