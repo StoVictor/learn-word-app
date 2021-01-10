@@ -1,0 +1,7 @@
+
+<div class="packbox">
+  <input type ="text" #PackInput [(ngModel)]="name" (input)="Search()" class="searchbar" placeholder="Search..."/>
+  <li class="boxes" *ngFor="let pack of Packs">
+      <span >{{pack.name}}</span> 
+  </li>
+</div>

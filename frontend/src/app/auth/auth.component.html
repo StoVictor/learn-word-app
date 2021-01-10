@@ -12,6 +12,19 @@
             Please provide a correct email
         </mat-error>
     </mat-form-field>
+    <mat-form-field class="form__field" *ngIf="!isLoginMode">
+        <mat-label>Username</mat-label>
+        <input
+            matInput type="text"
+            ngModel name="username"
+            required
+            minlength="6"
+            #username="ngModel"
+        >
+        <mat-error *ngIf="!username.valid && username.touched">
+            Username should have at least 6 characters
+        </mat-error>
+    </mat-form-field>
     <mat-form-field class="form__field"> 
         <mat-label>Password</mat-label>
         <input matInput type="password" ngModel name="password" required minLength="6">
@@ -25,6 +38,7 @@
         </button>
     </div>
 </form>
+
 <div class="spinner-container" *ngIf="isLoading">
     <div class="lds-hourglass"></div>
 </div>

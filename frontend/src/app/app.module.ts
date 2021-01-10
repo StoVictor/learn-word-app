@@ -22,6 +22,12 @@ import { AuthService } from './auth/auth.service';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { CreatePackComponent } from './create-pack/create-pack.component';
 
+import { APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
+import { InMemoryCache } from '@apollo/client/core';
+
+import { GraphQLModule } from './graphql.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,8 +52,28 @@ import { CreatePackComponent } from './create-pack/create-pack.component';
     MatFormFieldModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    GraphQLModule
   ],
-  providers: [AuthService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
+  providers: [
+    AuthService, 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true 
+    },
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: (httpLink: HttpLink) => {
+        return {
+          cache: new InMemoryCache(),
+          link: httpLink.create({
+            uri: 'http://127.0.0.1:5000/graphql'
+          })
+        }
+      },
+      deps: [HttpLink]
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
