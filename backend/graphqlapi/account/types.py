@@ -1,5 +1,7 @@
-from graphene import String, Field, ID, DateTime
+from graphene import String, Field, ID, DateTime, List
 from graphene.types.objecttype import ObjectType
+
+from backend.graphqlapi.packs import types
 
 
 class UserData(ObjectType):
@@ -15,3 +17,6 @@ class User(ObjectType):
     email = String()
     username = String()
     data = Field(UserData)
+
+    friends = List(lambda: User)
+    subscribed_packs = List(lambda: types.Pack)
