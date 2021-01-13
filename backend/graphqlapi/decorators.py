@@ -1,6 +1,7 @@
 from functools import wraps
 
 from flask import request
+from flask_graphql_auth import get_jwt_identity
 
 from flask_graphql_auth.decorators import (
     verify_jwt_in_argument,
@@ -8,33 +9,17 @@ from flask_graphql_auth.decorators import (
     _extract_header_token_value
 )
 
+from backend.account.objects import UserObjects
 
-def query_access_token_required(function):
+
+def access_token_required(function):
     @wraps(function)
-    def wrapper(self, info, **kwargs):
+    def wrapper(*args, **kwargs):
         token = _extract_header_token_value(request.headers)
         verify_jwt_in_argument(token)
-        return function(self, info, **kwargs)
-
-    return wrapper
-
-
-def query_refresh_token_required(function):
-    @wraps(function)
-    def wrapper(self, info, **kwargs):
-        token = _extract_header_token_value(request.headers)
-        verify_refresh_jwt_in_argument(token)
-        return function(self, info, **kwargs)
-
-    return wrapper
-
-
-def mutation_access_token_required(function):
-    @wraps(function)
-    def wrapper(cls, info, **kwargs):
-        token = _extract_header_token_value(request.headers)
-        verify_jwt_in_argument(token)
-        return function(cls, info, **kwargs)
+        current_user_email = get_jwt_identity()
+        user = UserObjects.from_email(current_user_email)
+        return function(*args, user, **kwargs)
 
     return wrapper
 

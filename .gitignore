@@ -69,7 +69,6 @@ _mailinglist
 .tox/
 .cache/
 .pytest_cache/
-.idea/
 docs/_build/
 .vscode
 

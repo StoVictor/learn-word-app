@@ -1,0 +1,32 @@
+<div *ngIf="train == true" class="main">
+  <h1 class="wordsLeft">
+    {{ this.wordNumber + 1 }}/{{ this.pack.words.length }}
+  </h1>
+  <h1>Translate this word to {{ pack.languages.to }} language!</h1>
+  <h1>{{ timeLeft }}</h1>
+  <div class="timeBar"></div>
+  <h1>{{ word }}</h1>
+  <div class="timeBar" style="margin-bottom: 5%"></div>
+  <input
+    class="customInput"
+    id="cInput"
+    type="text"
+    autocomplete="off"
+    placeholder="Enter word"
+    (keyup.enter)="checkWord($event)"
+  />
+  <button class="skipButton" (click)="skip()">Skip</button>
+  <button class="closeButton" (click)="closeTraining()">End training</button>
+</div>
+<div *ngIf="train == false" class="main">
+  <h1>Well Done!</h1>
+  <h2>
+    You had {{ this.statistics.correct }} correct and
+    {{ this.statistics.wrong }} wrong words in this training.
+  </h2>
+  <h2>These were wrong:</h2>
+  <h3 *ngFor="let word of wrongWords">
+    {{ word.wordFrom }} --> {{ word.wordTo }}
+  </h3>
+  <button class="closeButton" (click)="closeTraining()">Go back</button>
+</div>

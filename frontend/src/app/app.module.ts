@@ -12,15 +12,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AppComponent } from './app.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { TrainingAndGameComponent } from './training-and-game/training-and-game.component';
 import { AppRoutingModule } from './app-routing.module';
+import { PacksComponent } from './packs/packs.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthService } from './auth/auth.service';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { CreatePackComponent } from './create-pack/create-pack.component';
+import { TrainingComponent } from './training/training.component';
 
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
@@ -33,7 +36,9 @@ import { GraphQLModule } from './graphql.module';
     AppComponent,
     NavigationComponent,
     TrainingAndGameComponent,
+    PacksComponent,
     AuthComponent,
+    TrainingComponent,
     CreatePackComponent
   ],
   imports: [
@@ -43,6 +48,7 @@ import { GraphQLModule } from './graphql.module';
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
+    AppRoutingModule,
     MatInputModule,
     MatButtonModule,
     MatCardModule,
@@ -52,7 +58,8 @@ import { GraphQLModule } from './graphql.module';
     MatFormFieldModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    GraphQLModule
+    GraphQLModule,
+    MatCheckboxModule
   ],
   providers: [
     AuthService, 

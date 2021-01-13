@@ -1,1 +1,7 @@
-<p>training-and-game works!</p>
+<div class="main">
+  <h1>TRAINING</h1>
+  <div *ngFor="let pack of packs" (click)="routing(pack.name)" class="pack">
+    {{ pack.name }} | From: {{ pack.languages.from }} To:
+    {{ pack.languages.to }} | {{ pack.words.length }} words
+  </div>
+</div>
