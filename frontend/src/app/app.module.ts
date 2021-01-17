@@ -24,6 +24,7 @@ import { AuthService } from './auth/auth.service';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { CreatePackComponent } from './create-pack/create-pack.component';
 import { TrainingComponent } from './training/training.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TrainingComponent } from './training/training.component';
     PacksComponent,
     AuthComponent,
     TrainingComponent,
-    CreatePackComponent
+    CreatePackComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,

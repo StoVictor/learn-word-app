@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { TrainingAndGameComponent } from './training-and-game/training-and-game.component';
 import { PacksComponent } from './packs/packs.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
 import { CreatePackComponent } from './create-pack/create-pack.component';
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
     { path: 'packs/create', component: CreatePackComponent },
     { path: 'packs', component: PacksComponent },
     { path: 'training/:name', component: TrainingComponent },
+    { path: 'statistics', component: StatisticsComponent }
 ]
 
 @NgModule({
