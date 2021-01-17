@@ -1,4 +1,6 @@
-import { Pack } from './Pack';
+export interface Pack {
+  name: string;
+}
 
 export const APacks: Pack[] = [
   { name: 'Animals' },

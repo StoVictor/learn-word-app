@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { Pack, CreatePackService } from '../create-pack.service';
+import { IPack, IWord } from '../models/Pack';
+import { PackService } from '../services/pack.service';
 import {
   FormArray,
   FormBuilder,
@@ -88,34 +90,41 @@ export class CreatePackComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private createPackService: CreatePackService
+    private createPackService: CreatePackService,
+    private packService: PackService
   ) {}
 
   ngOnInit(): void {}
 
   onSubmit(): void {
-    let words = this.packForm.get('words').value.map((word) => {
-      return { from: word.wordFrom, to: word.wordTo };
+    let words: IWord[] = this.packForm.get('words').value.map((word) => {
+      return { wordFrom: word.wordFrom, wordTo: word.wordTo };
     });
-    const refpacks = [];
-    this.packForm.get('packs').value.forEach((include, index) => {
+    const refpacks: IPack[] = [];
+    /*this.packForm.get('packs').value.forEach((include, index) => {
       if (include) {
         refpacks.push(this.PACKS[index]);
         words = words.concat(this.PACKS[index].words);
       }
-    });
-    let pack = {
+    });*/
+    let pack: any = {
       name: this.packForm.get('name').value,
       public: this.packForm.get('type').value === '0' ? true : false,
-      languages: {
-        from: this.packForm.get('languages').get('langFrom').value,
-        to: this.packForm.get('languages').get('langTo').value,
-      },
-      packs: refpacks,
-      words,
-    } as Pack;
-    console.log(pack);
-    this.createPackService.savePack(pack);
+      fromLanguage: this.packForm.get('languages').get('langFrom').value,
+      toLanguage: this.packForm.get('languages').get('langTo').value,
+      subscirbedPacks: refpacks,
+      words: words,
+    }
+    // console.log(pack);
+    // this.createPack,Service.savePack(pack);
+    this.packService.create(
+      pack.fromLanguage, 
+      pack.toLanguage, 
+      pack.name, 
+      pack.public
+    ).subscribe(data => {
+      console.log(data);
+    }, err => console.log(err));
   }
 
   createWord(): FormGroup {

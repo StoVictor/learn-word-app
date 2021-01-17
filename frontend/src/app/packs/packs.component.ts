@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { APacks } from '../Packs';
-import { Pack } from '../Pack';
+import { APacks, Pack  } from '../Packs';
 
 
 @Component({

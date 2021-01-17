@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from './auth.service';
 
-import { RequestService } from 'src/app/test-request.service';
+import { RequestService } from 'src/app/services/test-request.service';
 
 
 @Component({
