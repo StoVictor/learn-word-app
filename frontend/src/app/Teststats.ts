@@ -57,39 +57,39 @@ export const listStat: Stat[] = [
   Pack: APacks[2],
   words:[
     {
-      wordFrom: "Desktop",
-      wordTo: "Desktop",
+      wordFrom: "komputer",
+      wordTo: "computer",
       correct: true
     },
     {
-        wordFrom: "Desktop",
-        wordTo: "gfh",
+        wordFrom: "zadanie",
+        wordTo: "task",
         correct: true
     },
     {
-        wordFrom: "Desktop",
-        wordTo: "sdg",
+        wordFrom: "kolega z pracy",
+        wordTo: "coleague",
         correct: false
     },
     {
-        wordFrom: "Desktop",
-        wordTo: "sg",
+        wordFrom: "dyskd",
+        wordTo: "disc",
         correct: true
     },
     {
-        wordFrom: "Desktop",
-        wordTo: "sgfds",
+        wordFrom: "drukarka",
+        wordTo: "printer",
         correct: true
     },
     {
-        wordFrom: "Desktop",
-        wordTo: "gdh",
+        wordFrom: "pensja",
+        wordTo: "sallary",
         correct: false
     },
 
     {
-        wordFrom: "Desktop",
-        wordTo: "hgfkj",
+        wordFrom: "zmiana",
+        wordTo: "shift",
         correct: true
     }
   ]

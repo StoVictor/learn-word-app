@@ -114,3 +114,8 @@
     border: 1px solid #000000;
     
 }
+
+.boxes:hover{
+    transform:translate(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,.5);
+}
