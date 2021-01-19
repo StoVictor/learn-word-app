@@ -1,0 +1,28 @@
+<div *ngIf="start === false">
+  <h1>Welcome to Game!</h1>
+  <h2>Pack name is: {{ pack.name }}</h2>
+  <h2>
+    You need to translate words from {{ pack.languages.from }} to
+    {{ pack.languages.to }}
+  </h2>
+  <button (click)="startGame()">Start</button>
+  <h3 *ngIf="ready === true">Wait for oponent to start</h3>
+</div>
+<div *ngIf="start === true && end === false">
+  <h1>Timer : {{ timeleft }}</h1>
+  <h1>{{ pack.words[wordnumber].from }}</h1>
+  <input #msg type="text" autocomplete="off" (keyup.enter)="collectWord()" />
+  <button (click)="collectWord()">Send</button>
+</div>
+<div *ngIf="end === true">
+  <h1>Game Over</h1>
+  <h2 *ngIf="score == false">Wait for score</h2>
+  <div *ngIf="score == true">
+    <h1>Your score: {{ mscore }}</h1>
+    <h1>Opponent score: {{ oscore }}</h1>
+    <h1 *ngIf="mscore > oscore">You won!</h1>
+    <h1 *ngIf="oscore > mscore">You lose!</h1>
+    <h1 *ngIf="mscore == oscore">Draw!</h1>
+  </div>
+  <button (click)="goBack()">Go back</button>
+</div>

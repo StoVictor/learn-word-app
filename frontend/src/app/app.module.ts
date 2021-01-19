@@ -24,6 +24,8 @@ import { AuthService } from './auth/auth.service';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { CreatePackComponent } from './create-pack/create-pack.component';
 import { TrainingComponent } from './training/training.component';
+import { WsgameComponent } from './wsgame/wsgame.component';
+import { WsgameGuard } from './wsgame/wsgame.guard';
 import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
@@ -35,6 +37,7 @@ import { StatisticsComponent } from './statistics/statistics.component';
     AuthComponent,
     TrainingComponent,
     CreatePackComponent,
+    WsgameComponent,
     StatisticsComponent
   ],
   imports: [
@@ -56,7 +59,15 @@ import { StatisticsComponent } from './statistics/statistics.component';
     ReactiveFormsModule,
     MatCheckboxModule,
   ],
-  providers: [AuthService, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }],
-  bootstrap: [AppComponent]
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+    WsgameGuard,
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
