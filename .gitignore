@@ -5,7 +5,6 @@
 /integration/bazel/bazel-*
 *.log
 node_modules
-envs
 
 # Include when developing application packages.
 pubspec.lock
