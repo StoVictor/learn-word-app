@@ -3,21 +3,22 @@
         <div *ngFor="let menuItem of menu;" class="menu-item">
             <a [routerLink]="menuItem.path" routerLinkActive="selected">
             <mat-icon 
+                class="mat-icon-24"
                 aria-hidden="false" 
                 [aria-label]="menuItem.name"
             >
                 {{ menuItem.icon }}
             </mat-icon>
-            <span>{{ menuItem.text }}</span>
+            <span>{{" "+ menuItem.text }}</span>
             </a>
         </div>
         <div class="menu-item">
             <a [routerLink]="'/auth'" routerLinkActive="selected" *ngIf="!isAuthinticated">
-                <mat-icon>login</mat-icon>
-                <span>Log in / Sign up</span> 
+                <mat-icon class="mat-icon-24">login</mat-icon>
+                <span> Log in / Sign up</span> 
             </a>
             <a *ngIf="isAuthinticated" (click)="onLogout()">
-                <mat-icon>login</mat-icon>
+                <mat-icon class="mat-icon-24">login</mat-icon>
                 <span>Log out</span>
             </a>
         </div>

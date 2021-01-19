@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-between;
   margin: 5px;
+  background-color: #117A65;
   box-shadow: 3px 3px 2px black;
   border-radius: 2px;
   width: unset !important;
@@ -13,6 +14,7 @@
 
 .example-container {
   position: absolute;
+  background-color: #73c6b6;
   top: 0;
   bottom: 0;
   left: 0;
@@ -28,7 +30,7 @@
 
 .menu-item:last-child {
   position: fixed;
-  bottom: 270px;
+  bottom: 0%;
   width: 100%;
 }
 
@@ -42,4 +44,11 @@
 
 .selected {
     background-color: #b3b3b3;
+}
+
+.mat-icon-24 {
+  vertical-align: middle;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
 }

@@ -25,6 +25,8 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { CreatePackComponent } from './create-pack/create-pack.component';
 import { TrainingComponent } from './training/training.component';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { GamelistComponent } from './gamelist/gamelist.component';
+import { CreateGameComponent } from './create-game/create-game.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { StatisticsComponent } from './statistics/statistics.component';
     AuthComponent,
     TrainingComponent,
     CreatePackComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    GamelistComponent,
+    CreateGameComponent
   ],
   imports: [
     BrowserModule,
