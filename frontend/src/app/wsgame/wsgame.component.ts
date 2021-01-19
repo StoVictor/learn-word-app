@@ -1,9 +1,14 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  Testability,
+  ViewChild,
+} from '@angular/core';
 import { WebSocketSubject } from 'rxjs/webSocket';
 import { NodeserverService } from '../nodeserver.service';
 import { Pack, CreatePackService } from '../create-pack.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-wsgame',
@@ -20,26 +25,25 @@ export class WsgameComponent implements OnInit {
   timeleft: number;
   timer: number;
   email: string;
+  ready = false;
+  wordlist: { word: string; timeleft: number }[];
+  mscore: number;
+  oscore: number;
+  score = false;
+  timeforgame = 5;
 
   constructor(
-    private nodeserver: NodeserverService,
     private packService: CreatePackService,
     private router: Router,
     private route: ActivatedRoute
   ) {
+    this.wordlist = [];
     this.socket$ = new WebSocketSubject('ws://localhost:3333');
-    this.nodeserver
-      .checkRoom(this.route.snapshot.paramMap.get('id'))
-      .subscribe((data: { free: boolean }) => {
-        if (!data.free) {
-          this.router.navigate(['/']);
-          window.location.reload();
-        }
-      });
     this.socket$.subscribe((message: any) => {
       console.log('Server responded: ' + message.message);
       if (message.message === 'go') {
         this.start = true;
+        this.nextWord();
       } else if (message.message === 'breakGame') {
         this.router.navigate([
           `/Games/${this.route.snapshot.paramMap.get('id')}`,
@@ -47,6 +51,10 @@ export class WsgameComponent implements OnInit {
         window.location.reload();
       } else if (message.message === 'pack') {
         this.pack = message.pack;
+      } else if (message.message === 'score') {
+        this.mscore = +message.yscore.toPrecision(4);
+        this.oscore = +message.oscore.toPrecision(4);
+        this.score = true;
       }
     });
   }
@@ -67,6 +75,10 @@ export class WsgameComponent implements OnInit {
   }
 
   collectWord(): void {
+    this.wordlist.push({
+      word: this.msg.nativeElement.value,
+      timeleft: this.timeleft,
+    });
     this.msg.nativeElement.value = '';
     this.nextWord();
   }
@@ -76,8 +88,11 @@ export class WsgameComponent implements OnInit {
   }
 
   startGame() {
+    if (this.ready) {
+      return;
+    }
     this.socket$.next({ user: this.email, message: 'start' });
-    this.nextWord();
+    this.ready = true;
   }
 
   nextWord() {
@@ -87,9 +102,9 @@ export class WsgameComponent implements OnInit {
       return;
     }
     clearInterval(this.timer);
-    this.timeleft = 2;
+    this.timeleft = this.timeforgame;
     this.timer = setInterval(() => {
-      if (this.timeleft <= 0) {
+      if (this.timeleft <= 1) {
         this.collectWord();
         return;
       }
@@ -100,11 +115,11 @@ export class WsgameComponent implements OnInit {
   stopGame() {
     clearInterval(this.timer);
     this.end = true;
+    this.socket$.next({ message: 'words', words: this.wordlist });
   }
 
   goBack() {
     const id = this.route.snapshot.paramMap.get('id');
-    window.location.reload();
-    //this.router.navigate([`/Games/${id}`]);
+    this.router.navigate([`/Games`]);
   }
 }

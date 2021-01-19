@@ -25,6 +25,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { CreatePackComponent } from './create-pack/create-pack.component';
 import { TrainingComponent } from './training/training.component';
 import { WsgameComponent } from './wsgame/wsgame.component';
+import { WsgameGuard } from './wsgame/wsgame.guard';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { WsgameComponent } from './wsgame/wsgame.component';
       useClass: AuthInterceptorService,
       multi: true,
     },
+    WsgameGuard,
   ],
   bootstrap: [AppComponent],
 })

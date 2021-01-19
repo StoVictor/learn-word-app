@@ -9,6 +9,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { CreatePackComponent } from './create-pack/create-pack.component';
 import { TrainingComponent } from './training/training.component';
 import { WsgameComponent } from './wsgame/wsgame.component';
+import { WsgameGuard } from './/wsgame/wsgame.guard';
 
 const appRoutes: Routes = [
   { path: '', component: AppComponent },
@@ -21,7 +22,7 @@ const appRoutes: Routes = [
   { path: 'packs/create', component: CreatePackComponent },
   { path: 'packs', component: PacksComponent },
   { path: 'training/:name', component: TrainingComponent },
-  { path: 'Games/:id', component: WsgameComponent },
+  { path: 'Games/:id', component: WsgameComponent, canActivate: [WsgameGuard] },
 ];
 
 @NgModule({
