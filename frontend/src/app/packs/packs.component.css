@@ -21,18 +21,18 @@
     line-height: 21px;
     display: flex;
     align-items: center;
-    background: #D0ECE7;
+    background: #d0ecd6;
     border: 0.1px solid #000000;
     color: #2C3E50;
 }
 
 .packbox{
     left: 40%;
+    width: 352px;
     padding: 5px 10px 5px;
     position: absolute;
     align-items: center;
     background: #73C6B6;
-
     box-sizing: border-box;
     
 }

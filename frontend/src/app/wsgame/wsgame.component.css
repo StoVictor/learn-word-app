@@ -1,0 +1,59 @@
+.main {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: #73c6b6;
+    color: #2c3e50;
+    height: 100%;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  }
+
+
+.Gamebox{
+    width: 70%;
+    height: 70%;
+    padding: 5px;
+    margin: auto;
+    border-radius: 2em;
+    text-align: center;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    vertical-align: middle;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #D0ECE7;
+
+    border: 1px solid #000000;
+    
+}
+.Valuebar{
+    width: 351px;
+    height: 37px;
+    left: 12px;
+    top: 110px;
+    margin: 10px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    background: #D0ECE7;
+    border: 0.1px solid #000000;
+    color: #2C3E50;
+}
+
+
+
+.button {
+    color: white;
+    background-color: #cd6155;
+    border: 0px;
+    width: 30%;
+    padding: 10px;
+    margin: 10px;
+    font-size: large;
+  }

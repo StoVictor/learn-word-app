@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { WebSocketSubject } from 'rxjs/webSocket';
 import { NodeserverService } from '../nodeserver.service';
+import { User } from '../auth/user.model'
 import { Pack, CreatePackService } from '../create-pack.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -31,6 +32,7 @@ export class WsgameComponent implements OnInit {
   oscore: number;
   score = false;
   timeforgame = 5;
+  user_: User;
 
   constructor(
     private packService: CreatePackService,
@@ -60,14 +62,16 @@ export class WsgameComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.pack = this.packService.PACKS[Math.floor(Math.random() * 3)];
-    while (this.email == '' || this.email == null) {
-      this.email = window.prompt('Enter your email');
-    }
+    //this.pack = this.packService.PACKS[Math.floor(Math.random() * 3)];
+    //while (this.email == '' || this.email == null) {
+    //  this.email = window.prompt('Enter your email');
+    //}
+    this.pack = JSON.parse(localStorage.getItem('PackData')) as Pack;
+    this.user_ = JSON.parse(localStorage.getItem('userData')) as User;
     this.socket$.next({
       message: 'room',
       room: {
-        user1: this.email,
+        user1: this.user_.email,
         id: this.route.snapshot.paramMap.get('id'),
         pack: this.pack,
       },

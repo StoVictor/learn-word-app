@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../auth/user.model';
 import { Pack, Room ,Rooms } from '../Pack';
+import { NodeserverService } from '../nodeserver.service'; 
+import { WebSocketSubject } from 'rxjs/webSocket';
 import * as uuid from 'uuid';
+
 
 @Component({
   selector: 'app-gamelist',
@@ -11,20 +14,24 @@ import * as uuid from 'uuid';
 })
 export class GamelistComponent implements OnInit {
 
-  constructor( private router: Router) {}
+  constructor(private noodeserver: NodeserverService, private router: Router) {
+    
+  }
   
   roomlist: Room[];
 
 
   ngOnInit(): void {
-    this.roomlist = Rooms;    
+    this.noodeserver.getList().subscribe(
+      roomlist => this.roomlist = roomlist
+    )
   }
 
-  Joingame(): void {
-    this.router.navigate([`/Games/`]);
+  Joingame(Room_ : Room): void {
+    this.router.navigate([`/Games/${Room_.id}`]);
   }
   
   tocreateview(): void{
-    this.router.navigate([`/Games/Creategame`]);
+    this.router.navigate(['Games/Creategame']);
   }
 }
