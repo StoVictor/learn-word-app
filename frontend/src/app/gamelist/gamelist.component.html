@@ -1,0 +1,12 @@
+<div class="main">
+    
+    <div class="content"><h1>Game rooms:</h1>  
+        <button class="btn-create-R" (click)="ngOnInit()">Reaload</button>
+        <button class="btn-create-C" (click)="tocreateview()">Create game</button>
+    
+        <li class="boxes" *ngFor="let room of roomlist" (click)="Joingame(room)">
+            <span>{{"Room " + room.user1 + " - " + room.pack +"  Click to join"}}  </span>
+        </li>    
+      
+    </div>
+</div>

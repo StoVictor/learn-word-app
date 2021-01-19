@@ -27,6 +27,8 @@ import { TrainingComponent } from './training/training.component';
 import { WsgameComponent } from './wsgame/wsgame.component';
 import { WsgameGuard } from './wsgame/wsgame.guard';
 import { StatisticsComponent } from './statistics/statistics.component';
+import { GamelistComponent } from './gamelist/gamelist.component';
+import { CreateGameComponent } from './create-game/create-game.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { StatisticsComponent } from './statistics/statistics.component';
     TrainingComponent,
     CreatePackComponent,
     WsgameComponent,
-    StatisticsComponent
+    StatisticsComponent,
+    GamelistComponent,
+    CreateGameComponent
   ],
   imports: [
     BrowserModule,

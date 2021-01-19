@@ -1,10 +1,13 @@
 
 <div class="main">
-<div><h1>Packs:</h1>  
+
+   
 <div class="packbox">
-  <div class="statbox">
+  
+   
+  <div class="statbox"> 
   <input type ="text" #PackInput [(ngModel)]="Searchkey" (input)="Search()" class="searchbar" placeholder="Search..."/>
-  </div>
+  </div><button class="btn-create-C" (click)="toCreatePack()">Create Pack</button> 
   <li class="boxes" *ngFor="let pack of Packs" (click)="onSelect(pack)">
       <span>{{pack.name + " | " + pack.languages.from }} <mat-icon class="mat-icon-16">
         arrow_right_alt
@@ -15,7 +18,7 @@
   </li>
   
 </div>
-<div class="Listbox" *ngIf="SelectedPack">
+<div @Selected class="Listbox" *ngIf="SelectedPack">
     <div class="statbox"><p><label >{{" Details of "+ SelectedPack.name + " pack" }}</label>
       <mat-icon class="mat-icon-36" (click)="onSelect(SelectedPack)">highlight_off</mat-icon></p></div>
     <li class="boxes">{{"Translate " + SelectedPack.languages.from}}<mat-icon class="mat-icon-16">
@@ -27,4 +30,5 @@
         </mat-icon>{{" "+ Word.to }}</span>
     </li>
 </div>
-</div></div>
+
+</div>

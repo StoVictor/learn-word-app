@@ -8,6 +8,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
 import { CreatePackComponent } from './create-pack/create-pack.component';
+import { GamelistComponent } from './gamelist/gamelist.component';
+import { CreateGameComponent } from './create-game/create-game.component';
 import { TrainingComponent } from './training/training.component';
 import { WsgameComponent } from './wsgame/wsgame.component';
 import { WsgameGuard } from './/wsgame/wsgame.guard';
@@ -20,8 +22,11 @@ const appRoutes: Routes = [
     { path: 'packs', component: PacksComponent },
     { path: 'training/:name', component: TrainingComponent },
     { path: 'statistics', component: StatisticsComponent },
-    { path: 'Games/:id', component: WsgameComponent, canActivate: [WsgameGuard] }
-];
+    { path: 'Games/:id', component: WsgameComponent, canActivate: [WsgameGuard] },
+    { path: 'Games', component: GamelistComponent },
+    { path: 'Games/Creategame', component: CreateGameComponent },
+]
+
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes, { useHash: true })],
   exports: [RouterModule],

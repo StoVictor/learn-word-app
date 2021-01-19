@@ -8,7 +8,7 @@
         </li>
       
     </div>
-    <div class="Listbox" *ngIf="Selectedstat; else elseBlock">
+    <div @Selected class="Listbox" *ngIf="Selectedstat; else elseBlock">
         <div class="statbox">{{"Stats from Pack " + Selectedstat.Pack.name}}</div>
         <div class="statbox">
         <p>{{"Words: "+ Selectedstat.count }}
