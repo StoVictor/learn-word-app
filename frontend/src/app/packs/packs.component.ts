@@ -10,8 +10,8 @@ import { Pack } from '../Pack';
 })
 export class PacksComponent implements OnInit {
   Packs: Pack[];
-  name: string;
-  //Packs = APacks;
+  Searchkey: string;
+  SelectedPack: Pack;
 
   constructor() {}
 
@@ -21,13 +21,23 @@ export class PacksComponent implements OnInit {
 
   Search(){
     this.ngOnInit();
-    if(this.name != ""){
+    if(this.Searchkey != ""){
       this.Packs = this.Packs.filter(res =>{
-        return res.name.toLocaleLowerCase().match(this.name.toLocaleLowerCase());
+        return res.name.toLocaleLowerCase().concat(res.languages.from.toLocaleLowerCase(),
+                res.languages.to.toLocaleLowerCase()).match(this.Searchkey.toLocaleLowerCase());
       });
-    }else if(this.name == ""){
+
+    }else if(this.Searchkey == ""){
       this.ngOnInit();
     }
     
+  }
+
+  onSelect(_Pack: Pack): void {
+    if(_Pack == this.SelectedPack){
+      this.SelectedPack = null;
+    }else{
+      this.SelectedPack = _Pack;
+    }
   }
 }

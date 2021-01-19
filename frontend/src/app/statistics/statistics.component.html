@@ -1,0 +1,29 @@
+<div class="main">
+    <div>
+        <h1>Statistics</h1>
+        <div class="packbox">
+        <div class="statbox">Statistic:</div>
+        <li class="boxes" *ngFor="let stat of statsList" (click)="onSelect(stat)">
+            <span>{{"Stats from Pack " + stat.Pack.name}} </span>      
+        </li>
+      
+    </div>
+    <div class="Listbox" *ngIf="Selectedstat; else elseBlock">
+        <div class="statbox">{{"Stats from Pack " + Selectedstat.Pack.name}}</div>
+        <div class="statbox">
+        <p>{{"Words: "+ Selectedstat.count }}
+        {{"Correct: " + Selectedstat.correct }}
+        {{"Wrong: " + Selectedstat.wrong  }}</p> 
+        </div>
+        <div class="fillbox"><div class="fillbar" [ngStyle]="{'width':percentage+'%'}">{{percentage | number: '1.0-0'}}%</div></div>
+        <p>Words:</p>
+        <li class="boxes" *ngFor="let answers of Selectedstat.words" [ngStyle]="!answers.correct && {'background-color':'#C2413F', 'color':'black'}" >
+            <span >{{answers.wordFrom + " ---> " + answers.wordTo}}  </span>
+        </li>
+    </div>
+    <ng-template #elseBlock>
+        <div class="Listbox"> 
+            <div class="statbox">Click on a specific statistic</div>
+        </div>
+    </ng-template>
+</div>

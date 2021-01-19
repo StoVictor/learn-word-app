@@ -26,6 +26,7 @@ import { CreatePackComponent } from './create-pack/create-pack.component';
 import { TrainingComponent } from './training/training.component';
 import { WsgameComponent } from './wsgame/wsgame.component';
 import { WsgameGuard } from './wsgame/wsgame.guard';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { WsgameGuard } from './wsgame/wsgame.guard';
     TrainingComponent,
     CreatePackComponent,
     WsgameComponent,
+    StatisticsComponent
   ],
   imports: [
     BrowserModule,
