@@ -2,9 +2,9 @@ import graphene
 
 from bson.objectid import ObjectId
 
-from backend.account.objects import PackObjects
-from backend.graphqlapi.packs import types
-from backend.graphqlapi.packs import exceptions
+from backend.account.objects import PackObjects, TrainingStatistic
+from backend.account.proxies import User
+from backend.graphqlapi.packs import types, exceptions
 from backend.graphqlapi.decorators import access_token_required
 
 
@@ -99,9 +99,41 @@ class RemoveWordsFromPack(graphene.Mutation):
         return AddWordsToPack(pack=pack)
 
 
+class CreateTrainingStatistic(graphene.Mutation):
+    training_statistic = graphene.Field(types.TrainingStatistic)
+
+    class Arguments:
+        pack = graphene.ID(required=True)
+        correct_answers_number = graphene.Int(required=True)
+        words_number = graphene.Int(required=True)
+
+    @access_token_required
+    def mutate(self, _info, user, **kwargs):
+        training_statistic = TrainingStatistic.create(user=user.id, **kwargs)
+        return CreateTrainingStatistic(training_statistic=training_statistic)
+
+
+class DeleteTrainingStatistic(graphene.Mutation):
+    output = graphene.Field(graphene.Boolean)
+
+    class Arguments:
+        id = graphene.ID(required=True)
+
+    @access_token_required
+    def mutate(self, _info, user, id: str):
+        training_statistic = TrainingStatistic.from_id(ObjectId(id))
+        if user.id == training_statistic.user:
+            training_statistic.delete()
+            return DeleteTrainingStatistic(output=True)
+        return DeleteTrainingStatistic(output=False)
+
+
 class Mutation(graphene.ObjectType):
     create_pack = CreatePack.Field()
     add_words_to_pack = AddWordsToPack.Field()
     remove_words_from_pack = RemoveWordsFromPack.Field()
     edit_pack = EditPack.Field()
     delete_pack = DeletePack.Field()
+
+    create_training_statistic = CreateTrainingStatistic.Field()
+    delete_training_statistic = DeleteTrainingStatistic.Field()

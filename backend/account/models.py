@@ -1,5 +1,5 @@
 from pymodm import MongoModel, EmbeddedMongoModel, ReferenceField
-from pymodm.fields import CharField, EmbeddedDocumentField, DateTimeField, ListField, IntegerField, BooleanField
+from pymodm.fields import CharField, EmbeddedDocumentField, DateTimeField, ListField, IntegerField, BooleanField, FloatField
 
 import pymongo
 
@@ -52,16 +52,17 @@ class Pack(MongoModel):
 
 
 class TrainingStatistic(MongoModel):
-    author = ReferenceField(User, required=True, on_delete=ReferenceField.CASCADE)
+    user = ReferenceField(User, required=True, on_delete=ReferenceField.CASCADE)
     pack = ReferenceField(Pack, required=True, on_delete=ReferenceField.CASCADE)
-    date = DateTimeField(required=True)
-    right_words = IntegerField(required=True)
-    all_words = IntegerField(required=True)
+    created_at = DateTimeField(required=True)
+    correct_answers_number = IntegerField(required=True)
+    correct_answers_percentage = FloatField(required=True)
+    words_number = IntegerField(required=True)
 
     class Meta:
         collection_name = "training_statistics"
         indexes = [
-            pymongo.IndexModel("author"),
+            pymongo.IndexModel("user"),
             pymongo.IndexModel("pack")
         ]
 
