@@ -19,12 +19,13 @@ const appRoutes: Routes = [
     { path: 'training_and_game', component: TrainingAndGameComponent, canActivate: [AuthGuard] },
     { path: 'auth', component: AuthComponent },
     { path: 'packs/create', component: CreatePackComponent },
-    { path: 'packs', component: PacksComponent },
+    { path: 'packs', component: PacksComponent, canActivate: [AuthGuard] },
     { path: 'training/:name', component: TrainingComponent },
-    { path: 'statistics', component: StatisticsComponent },
-    { path: 'Games/:id', component: WsgameComponent, canActivate: [WsgameGuard] },
-    { path: 'Games', component: GamelistComponent },
-    { path: 'Games/Creategame', component: CreateGameComponent },
+    { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] },
+    { path: 'Games', component: GamelistComponent, canActivate: [AuthGuard] },
+    { path: 'Games/Creategame', component: CreateGameComponent, canActivate: [AuthGuard] },
+    { path: 'Games/:id', component: WsgameComponent, canActivate: [WsgameGuard] }
+    
 ]
 
 @NgModule({

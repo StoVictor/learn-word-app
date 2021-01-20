@@ -53,6 +53,8 @@
 
 .content{
     left: 40%;
+    width: 390px;
+    min-height: 400px;
     padding: 5px 10px 5px;
     margin: 5px 5px 0px 5px;
     position: absolute;
@@ -64,8 +66,7 @@
 
 .boxes{
     width: 352px;
-    height: 35px;
-    left: 13px;
+    height: 35px;    
     top: 254px;
     padding: 5px;
     margin: 5px 5px 0px 5px;
