@@ -10,6 +10,11 @@ class User(ModelProxy):
         model = models.User
 
 
+class TrainingStatistic(ModelProxy):
+    class Meta:
+        model = models.TrainingStatistic
+
+
 class Pack(ModelProxy):
     class Meta:
         model = models.Pack
