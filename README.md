@@ -7,7 +7,12 @@ virtualenv --python=python3.9 venv
 pip install -r requirenments.txt
 npm install
 ```
-
+## To develop Node.js
+```
+cd node
+npm install
+npm start
+```
 ## To develop fronted
 ```
 cd frontend

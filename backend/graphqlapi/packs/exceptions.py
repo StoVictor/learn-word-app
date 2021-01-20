@@ -20,3 +20,9 @@ class EditPackError(ValueError):
     def __init__(self) -> None:
         message = "You can not edit packs of other users."
         ValueError.__init__(self, message)
+
+
+class PrivatePuckError(ValueError):
+    def __init__(self) -> None:
+        message = "You can not view private pucks."
+        ValueError.__init__(self, message)

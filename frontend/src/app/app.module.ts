@@ -24,6 +24,11 @@ import { AuthService } from './auth/auth.service';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
 import { CreatePackComponent } from './create-pack/create-pack.component';
 import { TrainingComponent } from './training/training.component';
+import { WsgameComponent } from './wsgame/wsgame.component';
+import { WsgameGuard } from './wsgame/wsgame.guard';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { GamelistComponent } from './gamelist/gamelist.component';
+import { CreateGameComponent } from './create-game/create-game.component';
 
 import { APOLLO_OPTIONS } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
@@ -39,7 +44,11 @@ import { GraphQLModule } from './graphql.module';
     PacksComponent,
     AuthComponent,
     TrainingComponent,
-    CreatePackComponent
+    CreatePackComponent,
+    WsgameComponent,
+    StatisticsComponent,
+    GamelistComponent,
+    CreateGameComponent
   ],
   imports: [
     BrowserModule,
@@ -79,8 +88,9 @@ import { GraphQLModule } from './graphql.module';
         }
       },
       deps: [HttpLink]
-    }
+    },
+    WsgameGuard
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
