@@ -1,6 +1,7 @@
 from functools import wraps
-
-from flask import request
+import jwt
+import base64
+from flask import request, current_app
 from flask_graphql_auth import get_jwt_identity
 
 from flask_graphql_auth.decorators import (
@@ -15,6 +16,7 @@ from backend.account.objects import UserObjects
 def access_token_required(function):
     @wraps(function)
     def wrapper(*args, **kwargs):
+        print(request.headers)
         token = _extract_header_token_value(request.headers)
         verify_jwt_in_argument(token)
         current_user_email = get_jwt_identity()
