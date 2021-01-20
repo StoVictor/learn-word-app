@@ -17,6 +17,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { concatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-pack',
@@ -115,14 +116,15 @@ export class CreatePackComponent implements OnInit {
       subscirbedPacks: refpacks,
       words: words,
     }
-    // console.log(pack);
-    // this.createPack,Service.savePack(pack);
     this.packService.create(
       pack.fromLanguage, 
       pack.toLanguage, 
       pack.name, 
       pack.public
-    ).subscribe(data => {
+    ).pipe(concatMap((data: any) => {
+      const packID = data.data.createPack.pack.id;
+      return this.packService.addWords(packID, words);
+    })).subscribe(data => {
       console.log(data);
     }, err => console.log(err));
   }

@@ -11,7 +11,7 @@ import { map, take } from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
 
-@Injectable({providedIn: 'root'})
+/*@Injectable({providedIn: 'root'})
 export class AuthGuard implements CanActivate {
     constructor(private auth: AuthService, private router: Router) {}
     canActivate(
@@ -23,4 +23,4 @@ export class AuthGuard implements CanActivate {
            return isAuth ? true : this.router.createUrlTree(['/auth']);
        }));
     }
-}
+}*/

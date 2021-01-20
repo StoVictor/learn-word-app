@@ -13,14 +13,14 @@ export class AuthInterceptorService implements HttpInterceptor {
                 //if (!user) {
                 //    return next.handle(req);
                 //}
-                let accessToken: string = localStorage.getItem('accessToken');
+                /*let accessToken: string = localStorage.getItem('accessToken');
                 if (accessToken){
                     const headers = req.headers.set('accessToken', accessToken);
                     const modifiedReq = req.clone({ headers: headers });
                     return next.handle(modifiedReq);
-                } else {
+                } else {*/
                     return next.handle(req);
-                }
+                //}
 
                 //const modifiedReq = req.clone({params: new HttpParams().set('auth', user.token)}); 
                 //return next.handle(modifiedReq);

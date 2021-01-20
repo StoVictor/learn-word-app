@@ -1,6 +1,8 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Apollo, gql } from 'apollo-angular';
-import { IPack } from '../models/Pack';
+import { getPackedSettings } from 'http2';
+import { IPack, IWord } from '../models/Pack';
 
 @Injectable({ providedIn: 'root' })
 export class PackService {
@@ -25,8 +27,35 @@ export class PackService {
               fromLanguage
             }
           }
-        }`
+        }`,
+        context: {
+          headers: new HttpHeaders({ Authorization: `Bearer ${localStorage.getItem('accessToken')}` })
+        }
     });
+  }
+
+  addWords(id: string, words: IWord[]){
+    return this.apollo.mutate({
+      mutation: gql`
+      mutation AddWordsToPack( $packId: ID!, $words: [WordInput]!) {
+        addWordsToPack(
+          packId: $packId,
+          words: $words
+        ) {
+          pack {
+            id
+            words {
+              wordFrom
+              wordTo
+            }
+          }
+        }
+      }`,
+        variables: {packId: id, words: words },
+        context: {
+          headers: new HttpHeaders({ Authorization: `Bearer ${localStorage.getItem('accessToken')}` })
+        }
+    })
   }
 
   modify(id: string){
@@ -37,9 +66,7 @@ export class PackService {
 
   }
 
-  addWords(id: string){
 
-  }
 
   removeWords(id: string){
       

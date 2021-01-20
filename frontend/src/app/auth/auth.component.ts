@@ -35,8 +35,8 @@ export class AuthComponent implements OnInit {
         this.loginForm.form.value.password
       ).subscribe(data => {
         const tokensData = (data as any).data.authenticateUser;
-        localStorage.setItem('refreshToken', JSON.stringify(tokensData.refreshToken));
-        localStorage.setItem('accessToken', JSON.stringify(tokensData.accessToken));
+        localStorage.setItem('refreshToken', tokensData.refreshToken);
+        localStorage.setItem('accessToken', tokensData.accessToken);
         this.onSuccess();
       }, error => this.handleError(error));
     } else {
