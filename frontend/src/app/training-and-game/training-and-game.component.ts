@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Pack, CreatePackService } from '../create-pack.service';
 import { Router } from '@angular/router';
+import { PackService } from '../services/pack.service';
+import { concatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-training-and-game',
@@ -8,14 +10,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./training-and-game.component.css'],
 })
 export class TrainingAndGameComponent implements OnInit {
-  packs: Pack[];
-  constructor(private packService: CreatePackService, private router: Router) {}
+  //packs: Pack[];
+  packs: any;
+  constructor(private packService: PackService, private router: Router) {}
 
   ngOnInit(): void {
-    this.packs = this.packService.PACKS;
+  this.packService.getMe()
+    .pipe(concatMap(id => this.packService.getPacksByUser(id)))
+    .subscribe(packs => { this.packs = packs });
   }
 
-  routing(name: string): void {
-    this.router.navigate([`/training/${name}`]);
+  routing(id: string): void {
+    this.router.navigate([`/training/${id}`]);
   }
 }

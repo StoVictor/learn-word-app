@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { APacks } from '../Packs';
-import { Pack } from '../Pack';
+import { APacks, Pack  } from '../Packs';
 import { Router } from '@angular/router';
 import {animate, state, style, transition, trigger,} from '@angular/animations';
+import { PackService } from '../services/pack.service';
+import { concatMap, map, shareReplay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-packs',
@@ -32,23 +33,57 @@ import {animate, state, style, transition, trigger,} from '@angular/animations';
 })
 
 export class PacksComponent implements OnInit {
+  publicPacks:any;
+  myPacks:any;
+  publicSubs: any;
+  mySubs: any;
   Packs: Pack[];
+  pub: Boolean = true;
+  my: Boolean = true;
   Searchkey: string;
   SelectedPack: Pack;
 
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private packService: PackService) {}
 
   ngOnInit(): void {
-    this.Packs = APacks;
+    if (!this.publicPacks && this.pub){
+      this.publicPacks = this.packService.getPublicPacks().pipe(shareReplay(1));
+    }
+    if (!this.myPacks && this.my){
+      this.myPacks = this.packService.getMe().pipe(concatMap(id => this.packService.getPacksByUser(id)), shareReplay(1));
+    }
+    //this.Packs = APacks;
+    this.Packs = []
+    if(this.pub){
+      this.publicSubs = this.publicPacks.subscribe(data => {console.log(data); this.Packs.push(...data)});
+      //this.publicSubs.unsubscribe();
+    }
+    if(this.my){
+      this.mySubs = this.myPacks
+        .subscribe(data => {
+          data.map(el => {
+            if (this.pub && !el.public){
+              this.Packs.push(el);
+            } else if( !this.pub ){
+              this.Packs.push(el);
+            }
+          })
+      });
+     //this.mySubs.unsubscribe();
+    }
+  }
+
+  onCheckChange(){
+    this.ngOnInit();
   }
 
   Search(){
     this.ngOnInit();
     if(this.Searchkey != ""){
-      this.Packs = this.Packs.filter(res =>{
-        return res.name.toLocaleLowerCase().concat(res.languages.from.toLocaleLowerCase(),
-                res.languages.to.toLocaleLowerCase()).match(this.Searchkey.toLocaleLowerCase());
+      this.Packs = this.Packs.filter((res: any) =>{
+        return res.name.toLocaleLowerCase().concat(res.fromLanguage.toLocaleLowerCase(),
+                res.toLanguage.toLocaleLowerCase()).match(this.Searchkey.toLocaleLowerCase());
       });
 
     }else if(this.Searchkey == ""){
@@ -59,6 +94,12 @@ export class PacksComponent implements OnInit {
   toCreatePack(): void {
     this.router.navigate([`/packs/create`]);
   } 
+
+  deletePack(id: string){
+    this.packService.delete(id).subscribe(data => console.log('Delete', data));
+    this.SelectedPack = null;
+    //this.ngOnInit();
+  }
 
   onSelect(_Pack: Pack): void {
     if(_Pack == this.SelectedPack){

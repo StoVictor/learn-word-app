@@ -1,11 +1,13 @@
 from flask import Flask, render_template
 from flask_graphql import GraphQLView
 from flask_graphql_auth import GraphQLAuth
+from flask_cors import CORS
 
 from backend.graphqlapi.schema import schema
 from backend import config
 
 app = Flask(__name__)
+CORS(app)
 app.config['SECRET_KEY'] = config.SECRET_KEY
 app.config["JWT_SECRET_KEY"] = config.JWT_SECRET_KEY
 app.config["ACCESS_EXP_LENGTH"] = config.ACCESS_EXP_LENGTH

@@ -2,6 +2,9 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Pack, CreatePackService } from '../create-pack.service';
+import { PackService } from '../services/pack.service';
+import { StatisticService } from '../services/statistic.service';
+
 
 interface Statistics {
   count: number;
@@ -23,13 +26,13 @@ interface Statistics {
   styleUrls: ['./training.component.css'],
 })
 export class TrainingComponent implements OnInit {
-  pack: Pack;
+  pack: any; //: Pack;
   word: string;
   wordNumber = 0;
   train = true;
   statistics: Statistics;
   time: number;
-  timer: number;
+  timer: any;
   timeToEnterWord = 20;
   timeLeft = this.timeToEnterWord;
   timeBarWidth = 40;
@@ -38,37 +41,41 @@ export class TrainingComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private packService: CreatePackService,
+    private packService: PackService,
+    private statisticService: StatisticService,
     private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {
-    const name = this.route.snapshot.paramMap.get('name');
-    this.pack = this.packService.getPack(name);
-    this.word = this.pack.words[this.wordNumber].from;
-    this.generateStatistics();
-    this.time = Math.round(Date.now() / 1000);
-    const timeBar = document.getElementsByClassName('timeBar');
-    this.timer = setInterval(() => {
-      this.timeLeft =
-        this.timeToEnterWord - (Math.round(Date.now() / 1000) - this.time);
-      var particle =
-        (this.timeBarWidth / this.timeToEnterWord) *
-        (this.timeToEnterWord - this.timeLeft);
-      this.renderer.setStyle(
-        timeBar.item(0),
-        'width',
-        `${this.timeBarWidth - particle}%`
-      );
-      this.renderer.setStyle(
-        timeBar.item(1),
-        'width',
-        `${this.timeBarWidth - particle}%`
-      );
-      if (this.timeLeft < 0) {
-        this.nextWord();
-      }
-    }, 1000);
+    const id = this.route.snapshot.paramMap.get('id');
+    this.packService.getPackById(id).subscribe(pack => {
+      console.log(pack);
+      this.pack = pack;
+      this.word = this.pack.words[this.wordNumber].wordFrom;
+      this.generateStatistics();
+      this.time = Math.round(Date.now() / 1000);
+      const timeBar = document.getElementsByClassName('timeBar');
+      this.timer = setInterval(() => {
+        this.timeLeft =
+          this.timeToEnterWord - (Math.round(Date.now() / 1000) - this.time);
+        var particle =
+          (this.timeBarWidth / this.timeToEnterWord) *
+          (this.timeToEnterWord - this.timeLeft);
+        this.renderer.setStyle(
+          timeBar.item(0),
+          'width',
+          `${this.timeBarWidth - particle}%`
+        );
+        this.renderer.setStyle(
+          timeBar.item(1),
+          'width',
+          `${this.timeBarWidth - particle}%`
+        );
+        if (this.timeLeft < 0) {
+          this.nextWord();
+        }
+      }, 1000);
+    });
   }
 
   closeTraining(): void {
@@ -111,13 +118,13 @@ export class TrainingComponent implements OnInit {
       this.endTraining();
       return;
     }
-    this.word = this.pack.words[this.wordNumber].from;
+    this.word = this.pack.words[this.wordNumber].wordFrom;
   }
 
   skip(): void {
     this.statistics.words.push({
       wordFrom: this.word,
-      wordTo: this.pack.words[this.wordNumber].to,
+      wordTo: this.pack.words[this.wordNumber].wordTo,
       correct: false,
     });
     this.statistics.wrong = this.statistics.count - this.statistics.correct;
@@ -132,14 +139,17 @@ export class TrainingComponent implements OnInit {
     this.wrongWords = this.statistics.words.filter(
       (word) => word.correct == false
     );
+    this.statisticService
+      .createPackStatistic(this.statistics.correct, this.pack.words.length, this.pack.id)
+      .subscribe(d => console.log('AAAAAA', d));
   }
   generateStatistics(): void {
     this.statistics = {
       count: this.pack.words.length,
       correct: 0,
       wrong: 0,
-      langFrom: this.pack.languages.from,
-      langTo: this.pack.languages.to,
+      langFrom: this.pack.fromLanguage,
+      langTo: this.pack.toLanguage,
       packs: this.pack.packs,
       words: [],
     };
@@ -148,12 +158,12 @@ export class TrainingComponent implements OnInit {
   checkWord(event: any): void {
     this.statistics.words.push({
       wordFrom: this.word,
-      wordTo: this.pack.words[this.wordNumber].to,
+      wordTo: this.pack.words[this.wordNumber].wordTo,
       correct: false,
     });
     if (
       event.target.value.toLowerCase() ==
-      this.pack.words[this.wordNumber].to.toLowerCase()
+      this.pack.words[this.wordNumber].wordTo.toLowerCase()
     ) {
       this.statistics.correct += 1;
       this.statistics.words[this.wordNumber].correct = true;

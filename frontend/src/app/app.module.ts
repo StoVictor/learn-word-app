@@ -30,6 +30,12 @@ import { StatisticsComponent } from './statistics/statistics.component';
 import { GamelistComponent } from './gamelist/gamelist.component';
 import { CreateGameComponent } from './create-game/create-game.component';
 
+import { APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
+import { InMemoryCache } from '@apollo/client/core';
+
+import { GraphQLModule } from './graphql.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,16 +67,29 @@ import { CreateGameComponent } from './create-game/create-game.component';
     MatFormFieldModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    MatCheckboxModule,
+    GraphQLModule,
+    MatCheckboxModule
   ],
   providers: [
-    AuthService,
+    AuthService, 
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,
-      multi: true,
+      multi: true 
     },
-    WsgameGuard,
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: (httpLink: HttpLink) => {
+        return {
+          cache: new InMemoryCache(),
+          link: httpLink.create({
+            uri: 'http://127.0.0.1:5000/graphql'
+          })
+        }
+      },
+      deps: [HttpLink]
+    },
+    WsgameGuard
   ],
   bootstrap: [AppComponent],
 })

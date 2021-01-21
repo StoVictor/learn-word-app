@@ -2,8 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService, AuthResponseData } from './auth.service';
-import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
+
+import { RequestService } from 'src/app/services/test-request.service';
 
 
 @Component({
@@ -17,31 +18,53 @@ export class AuthComponent implements OnInit {
   isLoading:boolean = false;
   error = null;
 
-  constructor(private auth: AuthService, private router: Router) { }
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private requestService: RequestService
+  ) { }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
     this.isLoading = true;
-    let authObs: Observable<AuthResponseData>; 
     if (this.isLoginMode) {
-      authObs = this.auth.login(this.loginForm.form.value.email, this.loginForm.form.value.password);
+      this.requestService.authenticateUser(
+        this.loginForm.form.value.email,
+        this.loginForm.form.value.password
+      ).subscribe(data => {
+        const tokensData = (data as any).data.authenticateUser;
+        localStorage.setItem('refreshToken', tokensData.refreshToken);
+        localStorage.setItem('accessToken', tokensData.accessToken);
+        this.onSuccess();
+      }, error => this.handleError(error));
     } else {
-      authObs = this.auth.signup(this.loginForm.form.value.email, this.loginForm.form.value.password);
+      this.requestService.createUser(
+        this.loginForm.form.value.email,
+        this.loginForm.form.value.username,
+        this.loginForm.form.value.password
+      ).subscribe(data => this.onSuccess(), error => this.handleError(error));
     }
-    authObs.subscribe(resData => { this.router.navigate(['/training_and_game']);  this.isLoading = false; },
-        errorMessage => {
-            this.error = errorMessage;
-            this.isLoading = false;
-        }
-    );
     this.loginForm.reset();
+  }
+
+  handleError(err) {
+    this.error = err;
+    this.isLoading = false
+  }
+
+  onSuccess() {
+    this.isLoading = false;
+    this.isLoginMode = true;
+    this.error = null;
   }
 
   onSwitchMode(){
     this.isLoginMode = !this.isLoginMode;
     console.log(this.loginForm);
   }
+
+  
 
 }

@@ -23,7 +23,6 @@ class CreateUser(graphene.Mutation):
 class AuthMutation(graphene.Mutation):
     access_token = graphene.String()
     refresh_token = graphene.String()
-
     class Arguments:
         email = graphene.String()
         password = graphene.String()
@@ -32,7 +31,6 @@ class AuthMutation(graphene.Mutation):
         user = UserObjects.from_email(email)
         if not check_password_hash(user.password, password):
             raise Exception('Authenication Failure : User password is not correct!')
-
         return AuthMutation(
             access_token=create_access_token(user.email),
             refresh_token=create_refresh_token(user.email)

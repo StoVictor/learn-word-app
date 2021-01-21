@@ -1,7 +1,7 @@
 <div class="main">
   <h1>TRAINING</h1>
-  <div *ngFor="let pack of packs" (click)="routing(pack.name)" class="pack">
-    {{ pack.name }} | From: {{ pack.languages.from }} To:
-    {{ pack.languages.to }} | {{ pack.words.length }} words
+  <div *ngFor="let pack of packs" (click)="routing(pack.id)" class="pack">
+    {{ pack.name }} | From: {{ pack.fromLanguage }} To:
+    {{ pack.toLanguage }} | {{ pack.words.length }} words
   </div>
 </div>

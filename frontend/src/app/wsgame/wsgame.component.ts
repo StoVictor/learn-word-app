@@ -24,7 +24,7 @@ export class WsgameComponent implements OnInit {
   end = false;
   wordnumber = -1;
   timeleft: number;
-  timer: number;
+  timer: any;
   email: string;
   ready = false;
   wordlist: { word: string; timeleft: number }[];

@@ -17,6 +17,5 @@ class User(ObjectType):
     email = String()
     username = String()
     data = Field(UserData)
-
     friends = List(lambda: User)
     subscribed_packs = List(lambda: types.Pack)

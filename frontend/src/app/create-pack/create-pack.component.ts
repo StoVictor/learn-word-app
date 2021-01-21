@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { Pack, CreatePackService } from '../create-pack.service';
+import { IPack, IWord } from '../models/Pack';
+import { PackService } from '../services/pack.service';
 import {
   FormArray,
   FormBuilder,
@@ -15,6 +17,7 @@ import {
   transition,
   trigger,
 } from '@angular/animations';
+import { concatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-pack',
@@ -88,34 +91,66 @@ export class CreatePackComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private createPackService: CreatePackService
+    private createPackService: CreatePackService,
+    private packService: PackService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.packService.getMe().subscribe(data => {
+      console.log("AAAAAAAAAAAAAAAAA", data);
+    })
+    this.packService.getPublicPacks().subscribe(data => {
+      console.log("BBBBBBBBBBBBBBBBB", data);
+    })
+    this.packService.getMe().subscribe(id => {
+      this.packService.getPacksByUser(id).subscribe(data => {
+        console.log("CCCCCCCCCCCCCCCCC", data);
+       /*data.map(el => this.packService.delete(el.id)
+         .subscribe(output => console.log("DDDDDDDDDDDDDDD", output)));
+        this.packService.modify(
+          data[1].id, 
+          'MyNormalName', 
+          "UGABUGA",
+          'urLange',
+          false
+        ).subscribe(data => console.log("EEEEEEEEEEEE", data))
+        this.packService.removeWords([0, 1], "6008d63b3fd6c92620e463b7").subscribe(data => {
+          console.log('IIIIIIIIII', data);
+        })*/
+      })
+    })
+  }
 
   onSubmit(): void {
-    let words = this.packForm.get('words').value.map((word) => {
-      return { from: word.wordFrom, to: word.wordTo };
+    let words: IWord[] = this.packForm.get('words').value.map((word) => {
+      return { wordFrom: word.wordFrom, wordTo: word.wordTo };
     });
-    const refpacks = [];
-    this.packForm.get('packs').value.forEach((include, index) => {
+    const refpacks: IPack[] = [];
+    /*this.packForm.get('packs').value.forEach((include, index) => {
       if (include) {
         refpacks.push(this.PACKS[index]);
         words = words.concat(this.PACKS[index].words);
       }
-    });
-    let pack = {
+    });*/
+    let pack: any = {
       name: this.packForm.get('name').value,
       public: this.packForm.get('type').value === '0' ? true : false,
-      languages: {
-        from: this.packForm.get('languages').get('langFrom').value,
-        to: this.packForm.get('languages').get('langTo').value,
-      },
-      packs: refpacks,
-      words,
-    } as Pack;
-    console.log(pack);
-    this.createPackService.savePack(pack);
+      fromLanguage: this.packForm.get('languages').get('langFrom').value,
+      toLanguage: this.packForm.get('languages').get('langTo').value,
+      subscirbedPacks: refpacks,
+      words: words,
+    }
+    this.packService.create(
+      pack.fromLanguage, 
+      pack.toLanguage, 
+      pack.name, 
+      pack.public
+    ).pipe(concatMap((data: any) => {
+      const packID = data.data.createPack.pack.id;
+      return this.packService.addWords(packID, words);
+    })).subscribe(data => {
+      console.log(data);
+    }, err => console.log(err));
   }
 
   createWord(): FormGroup {
