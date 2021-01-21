@@ -95,7 +95,31 @@ export class CreatePackComponent implements OnInit {
     private packService: PackService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.packService.getMe().subscribe(data => {
+      console.log("AAAAAAAAAAAAAAAAA", data);
+    })
+    this.packService.getPublicPacks().subscribe(data => {
+      console.log("BBBBBBBBBBBBBBBBB", data);
+    })
+    this.packService.getMe().subscribe(id => {
+      this.packService.getPacksByUser(id).subscribe(data => {
+        console.log("CCCCCCCCCCCCCCCCC", data);
+       /*data.map(el => this.packService.delete(el.id)
+         .subscribe(output => console.log("DDDDDDDDDDDDDDD", output)));
+        this.packService.modify(
+          data[1].id, 
+          'MyNormalName', 
+          "UGABUGA",
+          'urLange',
+          false
+        ).subscribe(data => console.log("EEEEEEEEEEEE", data))
+        this.packService.removeWords([0, 1], "6008d63b3fd6c92620e463b7").subscribe(data => {
+          console.log('IIIIIIIIII', data);
+        })*/
+      })
+    })
+  }
 
   onSubmit(): void {
     let words: IWord[] = this.packForm.get('words').value.map((word) => {

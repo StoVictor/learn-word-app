@@ -4,22 +4,22 @@
         <div class="packbox">
         <div class="statbox">Statistic:</div>
         <li class="boxes" *ngFor="let stat of statsList" (click)="onSelect(stat)">
-            <span>{{"Stats from Pack " + stat.Pack.name}} </span>      
+            <span>{{"Stats from Pack " + stat.name}} </span>      
         </li>
       
     </div>
     <div @Selected class="Listbox" *ngIf="Selectedstat; else elseBlock">
-        <div class="statbox">{{"Stats from Pack " + Selectedstat.Pack.name}}</div>
+        <div class="statbox">{{"Stats from Pack " + Selectedstat.name}}</div>
         <div class="statbox">
-        <p>{{"Words: "+ Selectedstat.count }}
+        <p>{{"Words: "+ Selectedstat.all }}
         {{"Correct: " + Selectedstat.correct }}
-        {{"Wrong: " + Selectedstat.wrong  }}</p> 
+        {{"Wrong: " + (Selectedstat.all - Selectedstat.correct)  }}</p> 
         </div>
-        <div class="fillbox"><div class="fillbar" [ngStyle]="{'width':percentage+'%'}">{{percentage | number: '1.0-0'}}%</div></div>
-        <p>Words:</p>
+        <div class="fillbox"><div class="fillbar" [ngStyle]="{'width':percentage+'%'}">{{Selectedstat.perc | number: '1.0-0'}}%</div></div>
+        <!--<p>Words:</p>
         <li class="boxes" *ngFor="let answers of Selectedstat.words" [ngStyle]="!answers.correct && {'background-color':'#C2413F', 'color':'black'}" >
-            <span >{{answers.wordFrom + " ---> " + answers.wordTo}}  </span>
-        </li>
+            <span >{{answers.wordFrom + " -> " + answers.wordTo}}  </span>
+        </li>!-->
     </div>
     <ng-template #elseBlock>
         <div class="Listbox"> 

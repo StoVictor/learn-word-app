@@ -20,7 +20,7 @@ const appRoutes: Routes = [
     { path: 'auth', component: AuthComponent },
     { path: 'packs/create', component: CreatePackComponent },
     { path: 'packs', component: PacksComponent, /*canActivate: [AuthGuard]*/ },
-    { path: 'training/:name', component: TrainingComponent },
+    { path: 'training/:id', component: TrainingComponent },
     { path: 'statistics', component: StatisticsComponent, /*canActivate: [AuthGuard]*/ },
     { path: 'Games', component: GamelistComponent, /*canActivate: [AuthGuard]*/ },
     { path: 'Games/Creategame', component: CreateGameComponent, /*canActivate: [AuthGuard]*/ },

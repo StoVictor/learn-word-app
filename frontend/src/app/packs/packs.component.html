@@ -3,15 +3,19 @@
 
    
 <div class="packbox">
-  
-   
+
   <div class="statbox"> 
   <input type ="text" #PackInput [(ngModel)]="Searchkey" (input)="Search()" class="searchbar" placeholder="Search..."/>
-  </div><button class="btn-create-C" (click)="toCreatePack()">Create Pack</button> 
+  </div>
+  <div style="margin-left: 10px;">
+    <mat-checkbox [(ngModel)]="pub" (ngModelChange)="onCheckChange()" style="margin-right: 30px;"> Public collections </mat-checkbox>
+    <mat-checkbox [(ngModel)]="my" (ngModelChange)="onCheckChange()"> My collections </mat-checkbox>
+  </div>
+  <button class="btn-create-C" (click)="toCreatePack()">Create Pack</button> 
   <li class="boxes" *ngFor="let pack of Packs" (click)="onSelect(pack)">
-      <span>{{pack.name + " | " + pack.languages.from }} <mat-icon class="mat-icon-16">
+      <span>{{pack.name + " | " + pack.fromLanguage }} <mat-icon class="mat-icon-16">
         arrow_right_alt
-        </mat-icon>{{" "+ pack.languages.to + " |  Public: " }}
+        </mat-icon>{{" "+ pack.toLanguage + " |  Public: " }}
         <mat-icon *ngIf="pack.public" class="mat-icon-24">check_circle</mat-icon>
         <mat-icon *ngIf="!pack.public" class="mat-icon-24">unpublished</mat-icon>
       </span>
@@ -19,15 +23,20 @@
   
 </div>
 <div @Selected class="Listbox" *ngIf="SelectedPack">
-    <div class="statbox"><p><label >{{" Details of "+ SelectedPack.name + " pack" }}</label>
-      <mat-icon class="mat-icon-36" (click)="onSelect(SelectedPack)">highlight_off</mat-icon></p></div>
-    <li class="boxes">{{"Translate " + SelectedPack.languages.from}}<mat-icon class="mat-icon-16">
+    <div class="statbox">
+      <p>
+        <label >{{" Details of "+ SelectedPack.name + " pack" }}</label>
+        <mat-icon class="mat-icon-36" (click)="onSelect(SelectedPack)">highlight_off</mat-icon>
+        <button style="background-color: brown;" class="btn-create-C" (click)="deletePack(SelectedPack.id)">Delete Pack</button> 
+      </p>
+    </div>
+    <li class="boxes">{{"Translate " + SelectedPack.fromLanguage}}<mat-icon class="mat-icon-16">
       arrow_right_alt
-      </mat-icon>{{SelectedPack.languages.to}}</li>
+      </mat-icon>{{SelectedPack.toLanguage}}</li>
     <li class="boxes" *ngFor="let Word of SelectedPack.words">
-      <span> {{Word.id +". "+  Word.from }}<mat-icon class="mat-icon-16">
+      <span> {{ Word.wordFrom }}<mat-icon class="mat-icon-16">
         arrow_right_alt
-        </mat-icon>{{" "+ Word.to }}</span>
+        </mat-icon>{{" "+ Word.wordTo }}</span>
     </li>
 </div>
 

@@ -9,7 +9,7 @@
             >
                 {{ menuItem.icon }}
             </mat-icon>
-            <span>{{" "+ menuItem.text }}</span>
+            <span style="padding: 0px 35px 0px 35px;">{{" "+ menuItem.text }}</span>
             </a>
         </div>
         <div class="menu-item">
@@ -33,7 +33,6 @@
             </p>
 
         </mat-toolbar>
-        <button mat-button (click)="onReq()">Send Request</button>
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
